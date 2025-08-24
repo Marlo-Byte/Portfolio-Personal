@@ -147,8 +147,7 @@ main {
 
 @media (max-width: 768px) {
   .section {
-    padding: 3rem 0;
-    padding-top: 6rem; /* Compensar navbar fixed en móvil */
+    padding: 8rem 0 3rem 0; /* Compensar navbar fixed en móvil */
   }
 
   .section-title {
@@ -163,7 +162,7 @@ main {
 
 @media (max-width: 768px) {
   .section {
-    scroll-margin-top: 100px;
+    scroll-margin-top: 120px;
   }
 }
 </style>

@@ -15,6 +15,10 @@ const isSubmitting = ref(false)
 const submitStatus = ref<'idle' | 'success' | 'error'>('idle')
 
 onMounted(() => {
+  // Usar threshold más bajo en móvil para mejor detección
+  const isMobile = window.innerWidth <= 768
+  const threshold = isMobile ? 0.1 : 0.3
+
   observer.value = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -23,7 +27,7 @@ onMounted(() => {
         }
       })
     },
-    { threshold: 0.3 },
+    { threshold },
   )
 
   if (sectionRef.value) {
