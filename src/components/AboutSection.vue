@@ -160,6 +160,29 @@ const timeline = [
                 <p>Salta Capital, Argentina</p>
               </div>
             </div>
+
+            <!-- Botón de descarga del CV debajo de la ubicación -->
+            <div class="cv-download-location">
+              <a
+                href="/Portfolio-Personal/cv/CV_Actualizado_IA.pdf"
+                target="_blank"
+                class="btn btn-cv-location"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7,10 12,15 17,10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Descargar CV
+              </a>
+            </div>
           </div>
         </div>
 
@@ -522,6 +545,35 @@ const timeline = [
   }
 }
 
+/* Estilos para el botón de CV debajo de la ubicación */
+.cv-download-location {
+  margin-top: 1.5rem;
+}
+
+.btn-cv-location {
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 3px 10px rgba(59, 130, 246, 0.2);
+  width: 100%;
+  justify-content: center;
+}
+
+.btn-cv-location:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.3);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
 @media (max-width: 768px) {
   .about-grid {
     grid-template-columns: 1fr;
@@ -529,11 +581,7 @@ const timeline = [
   }
 
   .stats-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .qualities {
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .quality-item {
@@ -559,6 +607,12 @@ const timeline = [
   .certificate-btn {
     padding: 0.6rem 1rem;
     font-size: 0.85rem;
+  }
+
+  .btn-cv-location {
+    padding: 1.25rem;
+    font-size: 1rem;
+    gap: 0.75rem;
   }
 }
 
