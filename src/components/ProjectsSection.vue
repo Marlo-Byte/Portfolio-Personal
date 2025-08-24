@@ -426,30 +426,56 @@ const handleImageError = (event: Event) => {
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   border-radius: 1.5rem;
   color: white;
+  border: 2px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+/* Adaptación para modo oscuro */
+:root.dark .projects-cta {
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+  border-color: var(--primary-color);
+  color: var(--text-primary);
 }
 
 .cta-content h3 {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 1rem;
+  color: inherit;
 }
 
 .cta-content p {
   font-size: 1.1rem;
   margin-bottom: 2rem;
   opacity: 0.9;
+  color: inherit;
 }
 
 .cta-btn {
   background-color: white;
-  color: var(--primary-color);
-  border: none;
+  color: white;
+  border: 2px skyblue solid;
   font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .cta-btn:hover {
   background-color: var(--bg-secondary);
   transform: translateY(-2px);
+  border-color: var(--primary-color);
+}
+
+/* Botón adaptado para modo oscuro */
+:root.dark .cta-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+:root.dark .cta-btn:hover {
+  background-color: var(--secondary-color);
+  color: white;
+  border-color: var(--secondary-color);
 }
 
 @keyframes fadeInUp {

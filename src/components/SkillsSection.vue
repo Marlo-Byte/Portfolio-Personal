@@ -397,6 +397,7 @@ const softSkills = [
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   padding: 2.5rem;
   border-radius: 1.5rem;
+  border: 2px solid var(--border-color);
   color: white;
   max-width: 600px;
   display: flex;
@@ -414,18 +415,26 @@ const softSkills = [
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
+  color: inherit;
 }
 
 .learning-content p {
   line-height: 1.6;
   margin-bottom: 1.5rem;
   opacity: 0.9;
+  color: inherit;
 }
 
 .learning-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+:root.dark .learning-card {
+  background: linear-gradient(135deg, var(--bg-secondary), var(--bg-primary));
+  border-color: var(--primary-color);
+  color: var(--text-primary);
 }
 
 .learning-tag {
