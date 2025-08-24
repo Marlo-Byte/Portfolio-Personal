@@ -72,7 +72,13 @@ onMounted(() => {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
   line-height: 1.6;
   color: var(--text-primary);
   background-color: var(--bg-primary);
@@ -142,10 +148,22 @@ main {
 @media (max-width: 768px) {
   .section {
     padding: 3rem 0;
+    padding-top: 6rem; /* Compensar navbar fixed en móvil */
   }
-  
+
   .section-title {
     font-size: 2rem;
+  }
+}
+
+/* Asegurar que todas las secciones tengan espacio para el navbar fixed */
+.section {
+  scroll-margin-top: 80px;
+}
+
+@media (max-width: 768px) {
+  .section {
+    scroll-margin-top: 100px;
   }
 }
 </style>
