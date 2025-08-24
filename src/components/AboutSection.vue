@@ -35,26 +35,38 @@ const stats = [
 
 const timeline = [
   {
-    year: '2025 - Presente',
+    year: '2024-2025 - Presente',
     title: 'Técnico Superior en Programación',
     institution: 'TECLAB',
     location: 'Online',
     description:
       'Formación integral en desarrollo de software, bases de datos, y metodologías ágiles.',
+    certificate: '/Portfolio-Personal/certificates/intermedioteclab.pdf', // Agregar link del certificado o ruta del PDF cuando esté disponible
   },
   {
-    year: '2021',
+    year: '2025',
+    title: 'Programa de Entrenamiento Laboral (PEL)',
+    institution: 'C-TRANS',
+    location: 'Presencial (Salta Capital, Argentina)',
+    description:
+      'Tuve la oportunidad de participar en este programa que me permitió ganar experiencia práctica en el mundo laboral. Allí pude fortalecer mis habilidades, aprender nuevas formas de trabajo y prepararme mejor para futuros desafíos profesionales.',
+    certificate: '/Portfolio-Personal/certificates/pel.pdf', // Ejemplo de link externo
+  },
+  {
+    year: '2020-2021',
     title: 'Asistente en Higiene y Seguridad',
     institution: 'Instituto NOVAEDU',
     location: 'Online',
     description: 'Asistente en Higiene y Seguridad Laboral',
+    certificate: '/Portfolio-Personal/certificates/higieneyseguridad-certificado.pdf', // Ejemplo de certificado
   },
   {
-    year: '2021',
+    year: '2020-2021',
     title: 'Gestor de Transporte',
     institution: 'C-TRANS',
     location: 'Presencial (Salta Capital, Argentina)',
     description: 'Gestor de transporte: Transporte de carga general, internacional y peligrosa',
+    certificate: 'https://ejemplo.com/certificado-transporte', // Ejemplo de link externo
   },
 ]
 </script>
@@ -169,6 +181,29 @@ const timeline = [
                   <span class="location">{{ item.location }}</span>
                 </div>
                 <p class="timeline-description">{{ item.description }}</p>
+                <a
+                  v-if="item.certificate"
+                  :href="item.certificate"
+                  :target="item.certificate.startsWith('http') ? '_blank' : '_self'"
+                  :rel="item.certificate.startsWith('http') ? 'noopener noreferrer' : ''"
+                  class="certificate-btn"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14,2 14,8 20,8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10,9 9,9 8,9" />
+                  </svg>
+                  {{ item.certificate.endsWith('.pdf') ? 'Ver Certificado' : 'Ver Certificado' }}
+                </a>
               </div>
             </div>
           </div>
@@ -430,6 +465,39 @@ const timeline = [
   color: var(--text-secondary);
   line-height: 1.6;
   margin: 0;
+  margin-bottom: 1rem;
+}
+
+.certificate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  text-decoration: none;
+  border-radius: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: none;
+  cursor: pointer;
+}
+
+.certificate-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+}
+
+.certificate-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.certificate-btn svg {
+  flex-shrink: 0;
 }
 
 @keyframes fadeInUp {
@@ -486,6 +554,11 @@ const timeline = [
 
   .timeline-content {
     margin-left: 0.5rem;
+  }
+
+  .certificate-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
   }
 }
 
