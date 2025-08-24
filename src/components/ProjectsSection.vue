@@ -33,7 +33,7 @@ const projects = [
     title: 'Royal Logistic S.R.L.',
     description:
       'Desarrollado en WordPress, el sitio ofrece una navegación clara, moderna y adaptativa, diseñada para transmitir confianza, profesionalismo y accesibilidad.',
-    image: '/public/images/projects/Royal-Logistic.jpg',
+    image: '/Portfolio-Personal/images/projects/Royal-Logistic.jpg',
     technologies: ['Wordpress', 'Elementor Pro', 'Envato Elements'],
     category: 'wordpress',
     github: 'https://github.com',
@@ -44,7 +44,7 @@ const projects = [
     id: 2,
     title: 'Adivina Numero',
     description: 'Proyecto desafío, realizado por mi equipo de pasantia para la empresa TECLAB',
-    image: '/public/images/projects/adivina-numero.jpg',
+    image: '/Portfolio-Personal/images/projects/adivina-numero.jpg',
     technologies: ['JavaScript', 'CSS', 'HTML'],
     category: 'fullstack',
     github: 'https://github.com/Marlo-Byte/Adivina-numero',
@@ -55,7 +55,7 @@ const projects = [
     id: 3,
     title: 'TicTacTareas',
     description: 'Proyecto desafío, realizado por mi equipo de pasantia para la empresa TECLAB',
-    image: '/api/placeholder/400/250',
+    image: '/Portfolio-Personal/images/project3.svg',
     technologies: ['Vue.js 3', 'JavaScript', 'CSS', 'HTML'],
     category: 'frontend',
     github: 'https://github.com/Marlo-Byte/TicTacTareas',
@@ -67,7 +67,7 @@ const projects = [
     title: 'BOT Whatsapp con IA',
     description:
       'Este proyecto es un bot de WhatsApp y eficiente diseñado para automatizar la atención a clientes y proveedores. Su enfoque principal es guiar a los usuarios a través de un menú interactivo para resolver consultas comunes de forma automática.',
-    image: '/api/placeholder/400/250',
+    image: '',
     technologies: ['JavaScript'],
     category: 'fullstack',
     github: 'https://github.com/Marlo-Byte/Bot-Whatsapp',
@@ -93,6 +93,14 @@ const filteredProjects = computed(() => {
 
 const setFilter = (filter: string) => {
   activeFilter.value = filter
+}
+
+const handleImageError = (event: Event) => {
+  const target = event.target as HTMLImageElement
+  console.error('Error loading image:', target.src)
+  target.style.backgroundColor = '#f0f0f0'
+  target.style.border = '2px dashed #ccc'
+  target.alt = 'Error cargando imagen: ' + target.src
 }
 </script>
 
@@ -128,21 +136,12 @@ const setFilter = (filter: string) => {
             :style="{ animationDelay: `${index * 0.1}s` }"
           >
             <div class="project-image">
-              <div class="image-placeholder">
-                <svg
-                  width="80"
-                  height="80"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1"
-                >
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                  <circle cx="8.5" cy="8.5" r="1.5" />
-                  <polyline points="21,15 16,10 5,21" />
-                </svg>
-                <span class="placeholder-text">Imagen del Proyecto</span>
-              </div>
+              <img
+                :src="project.image"
+                :alt="project.title"
+                class="project-img"
+                @error="handleImageError"
+              />
               <div class="project-overlay">
                 <div class="project-actions">
                   <a
@@ -306,21 +305,18 @@ const setFilter = (filter: string) => {
   overflow: hidden;
 }
 
-.image-placeholder {
+.project-img {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, var(--bg-secondary), var(--border-color));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-secondary);
-  gap: 1rem;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  display: block;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
 }
 
-.placeholder-text {
-  font-size: 0.9rem;
-  font-weight: 500;
+.project-card:hover .project-img {
+  transform: scale(1.05);
 }
 
 .project-overlay {
