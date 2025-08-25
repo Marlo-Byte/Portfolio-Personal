@@ -24,6 +24,12 @@ app.use(
     credentials: true,
   }),
 )
+
+// Log para debugging CORS
+app.use((req, res, next) => {
+  console.log('🌐 Petición recibida:', req.method, req.url, 'desde:', req.get('Origin'))
+  next()
+})
 app.use(express.json())
 
 // Inicializar Gemini AI
@@ -93,24 +99,28 @@ Información temporal actual:
 Instrucciones:
 1. Responde SIEMPRE en primera persona como si fueras Mariano López.
 2. Mantén un tono profesional, cercano y entusiasta.
-3. Usa tu conocimiento técnico para responder preguntas sobre desarrollo web.
-4. Si te consultan sobre proyectos, menciona que tienes experiencia en desarrollo full stack.
-5. Si te preguntan sobre tu ubicación, responde que estás en Salta Capital, Argentina.
-6. Si te preguntan sobre fechas, días o tiempo, usa SIEMPRE la zona horaria de Argentina (GMT-3).
-7. Si no sabes algo específico, responde de forma general pero siempre manteniendo el personaje.
-8. Responde siempre en español.
-9. Sé conciso pero informativo.
-10. Si te preguntan sobre contacto, indica que pueden encontrar más información en tu portfolio.
-11. Transmite siempre entusiasmo por la tecnología, el aprendizaje constante y el desarrollo web.
+3. NO saludes con "¡Hola!" en cada respuesta. Solo saluda al inicio de una conversación nueva.
+4. Mantén conversaciones naturales y fluidas, respondiendo directamente a lo que te preguntan.
+5. Usa tu conocimiento técnico para responder preguntas sobre desarrollo web.
+6. Si te consultan sobre proyectos, menciona que tienes experiencia en desarrollo full stack.
+7. Si te preguntan sobre tu ubicación, responde que estás en Salta Capital, Argentina.
+8. Si te preguntan sobre fechas, días o tiempo, usa SIEMPRE la zona horaria de Argentina (GMT-3).
+9. Si no sabes algo específico, responde de forma general pero siempre manteniendo el personaje.
+10. Responde siempre en español.
+11. Sé conciso pero informativo.
+12. Si te preguntan sobre contacto, indica que pueden encontrar más información en tu portfolio.
+13. Transmite siempre entusiasmo por la tecnología, el aprendizaje constante y el desarrollo web.
+14. Adapta tu respuesta al contexto de la conversación - si ya te presentaste, no lo hagas de nuevo.
 
 Recuerda: eres Mariano López respondiendo directamente a visitantes de tu portfolio web desde Salta, Argentina.
 `
 }
 
-// Endpoint para chat con IA
+// Endpoint principal del chat
 app.post('/api/chat', async (req, res) => {
   try {
     const { message, sessionId } = req.body
+    console.log('📨 Nueva petición de chat:', { message: message?.substring(0, 50) + '...', sessionId })
 
     if (!message || message.trim() === '') {
       return res.status(400).json({
@@ -126,6 +136,7 @@ app.post('/api/chat', async (req, res) => {
 
     // Generar sessionId si no se proporciona
     const currentSessionId = sessionId || `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    console.log('🔑 SessionId actual:', currentSessionId)
     
     // Obtener o crear sesión de conversación
     let conversation = conversationMemory.get(currentSessionId)
@@ -135,6 +146,9 @@ app.post('/api/chat', async (req, res) => {
         lastActivity: Date.now()
       }
       conversationMemory.set(currentSessionId, conversation)
+      console.log('🆕 Nueva sesión creada para:', currentSessionId)
+    } else {
+      console.log('📚 Sesión existente encontrada:', currentSessionId, 'con', conversation.history.length, 'mensajes')
     }
     
     // Actualizar última actividad
@@ -184,11 +198,14 @@ app.post('/api/chat', async (req, res) => {
     // Agregar respuesta del bot al historial
     conversation.history.push({ role: 'assistant', content: cleanedText })
 
-    res.json({
+    // Enviar respuesta
+    const responseData = {
       response: cleanedText,
       timestamp: new Date().toISOString(),
       sessionId: currentSessionId
-    })
+    }
+    console.log('📤 Enviando respuesta con sessionId:', currentSessionId)
+    res.json(responseData)
   } catch (error) {
     console.error('Error en chat:', error)
 

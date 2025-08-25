@@ -30,11 +30,18 @@
             <h4>Mariano López</h4>
             <span class="status">{{ isTyping ? 'Escribiendo...' : 'En línea' }}</span>
           </div>
-          <button @click="toggleChat" class="close-btn">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </button>
+          <div class="chat-actions">
+            <button @click="clearSession" class="clear-btn" title="Nueva conversación">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M3 6H21M8 6V4C8 3.45 8.45 3 9 3H15C15.55 3 16 3.45 16 4V6M19 6V20C19 20.55 18.55 21 18 21H6C5.45 21 5 20.55 5 20V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button @click="toggleChat" class="close-btn">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
         </div>
 
         <!-- Área de mensajes -->
@@ -149,6 +156,7 @@ const getCurrentTime = () => {
 }
 
 const sendMessage = async () => {
+  console.log('📝 sendMessage llamado con:', currentMessage.value)
   if (!currentMessage.value.trim() || isLoading.value) return
 
   const userMessage: Message = {
@@ -176,6 +184,7 @@ const simulateAIResponse = async (userMessage: string) => {
   try {
     // Llamada real a la API de Gemini a través del backend
     const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+    console.log('🚀 Enviando mensaje:', { userMessage, sessionId: sessionId.value, apiUrl })
     const response = await fetch(`${apiUrl}/api/chat`, {
       method: 'POST',
       headers: {
@@ -192,10 +201,12 @@ const simulateAIResponse = async (userMessage: string) => {
     }
 
     const data = await response.json()
+    console.log('📨 Respuesta recibida:', data)
     
     // Actualizar sessionId si se recibe del backend
     if (data.sessionId) {
       sessionId.value = data.sessionId
+      console.log('🔑 SessionId actualizado:', sessionId.value)
     }
     
     let botResponse = ''
@@ -262,6 +273,9 @@ const loadSessionId = () => {
   const savedSessionId = localStorage.getItem('chat-session-id')
   if (savedSessionId) {
     sessionId.value = savedSessionId
+    console.log('💾 SessionId cargado desde localStorage:', savedSessionId)
+  } else {
+    console.log('💾 No hay sessionId en localStorage')
   }
 }
 
@@ -272,6 +286,7 @@ const saveSessionId = (id: string) => {
 
 // Lifecycle
 onMounted(() => {
+  console.log('🎯 ChatWidget montado correctamente')
   loadSessionId()
 })
 
@@ -402,6 +417,12 @@ watch(sessionId, (newSessionId) => {
   opacity: 0.8;
 }
 
+.chat-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.clear-btn,
 .close-btn {
   background: none;
   border: none;
@@ -410,10 +431,19 @@ watch(sessionId, (newSessionId) => {
   padding: 4px;
   border-radius: 4px;
   transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.clear-btn:hover,
 .close-btn:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+.clear-btn:active,
+.close-btn:active {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Área de mensajes */
