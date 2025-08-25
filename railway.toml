@@ -3,7 +3,7 @@ builder = "NIXPACKS"
 watchPatterns = ["**"]
 
 [deploy]
-startCommand = "npm start"
+startCommand = "cd backend && npm start"
 workingDirectory = "."
 
 [env]
