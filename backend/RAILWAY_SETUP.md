@@ -24,13 +24,15 @@ Después de configurar la variable:
 ## Troubleshooting
 
 ### Error 502 "Application failed to respond"
+
 - ✅ Verificar que `GEMINI_API_KEY` esté configurada
 - ✅ Verificar que el proyecto esté en la carpeta `backend/`
 - ✅ Verificar logs en Railway Dashboard
 
 ### CORS Errors
+
 - ✅ Verificar que el dominio de GitHub Pages esté en la lista de CORS
-- ✅ Actual configuración incluye: `https://marianolopez.github.io`
+- ✅ Actual configuración incluye: `https://marlo-byte.github.io/`
 
 ## Comandos de Deploy
 
