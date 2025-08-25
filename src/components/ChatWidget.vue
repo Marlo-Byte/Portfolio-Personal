@@ -39,7 +39,7 @@
 
         <!-- Área de mensajes -->
         <div class="chat-messages" ref="messagesContainer">
-          <div class="welcome-message">
+          <div class="welcome-message" v-if="messages.length === 0">
             <div class="message bot-message">
               <div class="message-content">
                 ¡Hola! 👋 Soy Mariano López. ¿En qué puedo ayudarte hoy? Puedes preguntarme sobre mi experiencia, proyectos o cualquier cosa relacionada con mi perfil profesional.
@@ -97,7 +97,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick, computed } from 'vue'
+import { ref, onMounted, nextTick, computed, watch } from 'vue'
 
 interface Message {
   id: string
@@ -119,6 +119,7 @@ const isLoading = ref(false)
 const isTyping = ref(false)
 const hasNewMessage = ref(false)
 const messagesContainer = ref<HTMLElement>()
+const sessionId = ref<string>('')
 
 // Computed
 const isDark = computed(() => props.isDark || false)
@@ -132,6 +133,12 @@ const toggleChat = () => {
       scrollToBottom()
     })
   }
+}
+
+// Función para limpiar la sesión (opcional, para empezar conversación nueva)
+const clearSession = () => {
+  sessionId.value = ''
+  messages.value = []
 }
 
 const getCurrentTime = () => {
@@ -174,7 +181,10 @@ const simulateAIResponse = async (userMessage: string) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ message: userMessage })
+      body: JSON.stringify({ 
+        message: userMessage,
+        sessionId: sessionId.value || undefined
+      })
     })
 
     if (!response.ok) {
@@ -182,6 +192,11 @@ const simulateAIResponse = async (userMessage: string) => {
     }
 
     const data = await response.json()
+    
+    // Actualizar sessionId si se recibe del backend
+    if (data.sessionId) {
+      sessionId.value = data.sessionId
+    }
     
     let botResponse = ''
     if (data.response) {
@@ -242,9 +257,29 @@ const handleInput = () => {
   // Aquí se puede agregar lógica para mostrar "escribiendo" al usuario
 }
 
+// Función para cargar sessionId desde localStorage
+const loadSessionId = () => {
+  const savedSessionId = localStorage.getItem('chat-session-id')
+  if (savedSessionId) {
+    sessionId.value = savedSessionId
+  }
+}
+
+// Función para guardar sessionId en localStorage
+const saveSessionId = (id: string) => {
+  localStorage.setItem('chat-session-id', id)
+}
+
 // Lifecycle
 onMounted(() => {
-  // Inicialización si es necesaria
+  loadSessionId()
+})
+
+// Watcher para guardar sessionId cuando cambie
+watch(sessionId, (newSessionId) => {
+  if (newSessionId) {
+    saveSessionId(newSessionId)
+  }
 })
 </script>
 

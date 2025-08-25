@@ -29,6 +29,24 @@ app.use(express.json())
 // Inicializar Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 
+// Sistema de memoria de conversaciones
+const conversationMemory = new Map()
+const MAX_CONVERSATION_HISTORY = 10 // Máximo de mensajes a recordar
+const CONVERSATION_TIMEOUT = 30 * 60 * 1000 // 30 minutos en milisegundos
+
+// Función para limpiar conversaciones expiradas
+const cleanExpiredConversations = () => {
+  const now = Date.now()
+  for (const [sessionId, session] of conversationMemory.entries()) {
+    if (now - session.lastActivity > CONVERSATION_TIMEOUT) {
+      conversationMemory.delete(sessionId)
+    }
+  }
+}
+
+// Limpiar conversaciones expiradas cada 10 minutos
+setInterval(cleanExpiredConversations, 10 * 60 * 1000)
+
 // Configurar zona horaria de Argentina
 process.env.TZ = 'America/Argentina/Salta'
 
@@ -92,7 +110,7 @@ Recuerda: eres Mariano López respondiendo directamente a visitantes de tu portf
 // Endpoint para chat con IA
 app.post('/api/chat', async (req, res) => {
   try {
-    const { message } = req.body
+    const { message, sessionId } = req.body
 
     if (!message || message.trim() === '') {
       return res.status(400).json({
@@ -106,11 +124,51 @@ app.post('/api/chat', async (req, res) => {
       })
     }
 
+    // Generar sessionId si no se proporciona
+    const currentSessionId = sessionId || `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    
+    // Obtener o crear sesión de conversación
+    let conversation = conversationMemory.get(currentSessionId)
+    if (!conversation) {
+      conversation = {
+        history: [],
+        lastActivity: Date.now()
+      }
+      conversationMemory.set(currentSessionId, conversation)
+    }
+    
+    // Actualizar última actividad
+    conversation.lastActivity = Date.now()
+    
+    // Agregar mensaje del usuario al historial
+    conversation.history.push({ role: 'user', content: message })
+    
+    // Mantener solo los últimos MAX_CONVERSATION_HISTORY mensajes
+    if (conversation.history.length > MAX_CONVERSATION_HISTORY * 2) {
+      conversation.history = conversation.history.slice(-MAX_CONVERSATION_HISTORY * 2)
+    }
+
     // Obtener el modelo
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
 
-    // Crear el prompt completo con fecha actual
-    const fullPrompt = `${getMarianoPersona()}\n\nUsuario: ${message}\n\nMariano López:`
+    // Construir el historial de conversación para el prompt
+    let conversationHistory = ''
+    if (conversation.history.length > 1) {
+      conversationHistory = '\n\nHistorial de conversación reciente:\n'
+      // Mostrar solo los últimos mensajes (excluyendo el actual)
+      const recentHistory = conversation.history.slice(-6, -1) // Últimos 5 mensajes anteriores
+      for (const msg of recentHistory) {
+        if (msg.role === 'user') {
+          conversationHistory += `Usuario: ${msg.content}\n`
+        } else {
+          conversationHistory += `Mariano López: ${msg.content}\n`
+        }
+      }
+      conversationHistory += '\n'
+    }
+
+    // Crear el prompt completo con fecha actual e historial
+    const fullPrompt = `${getMarianoPersona()}${conversationHistory}\nUsuario: ${message}\n\nMariano López:`
 
     // Generar respuesta
     const result = await model.generateContent(fullPrompt)
@@ -123,9 +181,13 @@ app.post('/api/chat', async (req, res) => {
       .replace(/^Mariano:\s*/i, '')
       .trim()
 
+    // Agregar respuesta del bot al historial
+    conversation.history.push({ role: 'assistant', content: cleanedText })
+
     res.json({
       response: cleanedText,
       timestamp: new Date().toISOString(),
+      sessionId: currentSessionId
     })
   } catch (error) {
     console.error('Error en chat:', error)
