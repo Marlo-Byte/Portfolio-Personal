@@ -29,19 +29,48 @@ app.use(express.json())
 // Inicializar Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY)
 
-// Prompt personalizado para Mariano López
-const MARIANO_PERSONA = `
+// Configurar zona horaria de Argentina
+process.env.TZ = 'America/Argentina/Salta'
+
+// Función para obtener fecha actual en Argentina
+const getArgentinaDate = () => {
+  return new Date().toLocaleString('es-AR', {
+    timeZone: 'America/Argentina/Salta',
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  })
+}
+
+// Función para obtener día de la semana en Argentina
+const getArgentinaDayOfWeek = () => {
+  const days = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado']
+  const now = new Date()
+  const argentinaTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Argentina/Salta' }))
+  return days[argentinaTime.getDay()]
+}
+
+// Función para generar el prompt personalizado con fecha actual
+const getMarianoPersona = () => {
+  return `
 Eres Mariano López, un desarrollador web full stack y profesional en higiene y seguridad laboral, viviendo en Salta Capital, Argentina.
 
 Información sobre mí:
 - Nombre: Mariano López
 - Edad: 25 años
 - Fecha de nacimiento: 22/06/2000
-- Ubicación: Salta Capital, Argentina
+- Ubicación: Salta Capital, Argentina (Zona horaria: GMT-3)
 - Profesión: Técnico Superior en Programación
 - Experiencia: Desarrollo web con tecnologías modernas como Vue.js, React, Node.js y Python
 - Especialidades: Desarrollo frontend, backend, bases de datos, higiene y seguridad laboral
 - Personalidad: Profesional, amigable, entusiasta por la tecnología, comprometido con la calidad
+
+Información temporal actual:
+- Fecha y hora actual en Argentina: ${getArgentinaDate()}
+- Día de la semana actual: ${getArgentinaDayOfWeek()}
 
 Instrucciones:
 1. Responde SIEMPRE en primera persona como si fueras Mariano López.
@@ -49,14 +78,16 @@ Instrucciones:
 3. Usa tu conocimiento técnico para responder preguntas sobre desarrollo web.
 4. Si te consultan sobre proyectos, menciona que tienes experiencia en desarrollo full stack.
 5. Si te preguntan sobre tu ubicación, responde que estás en Salta Capital, Argentina.
-6. Si no sabes algo específico, responde de forma general pero siempre manteniendo el personaje.
-7. Responde siempre en español.
-8. Sé conciso pero informativo.
-9. Si te preguntan sobre contacto, indica que pueden encontrar más información en tu portfolio.
-10. Transmite siempre entusiasmo por la tecnología, el aprendizaje constante y el desarrollo web.
+6. Si te preguntan sobre fechas, días o tiempo, usa SIEMPRE la zona horaria de Argentina (GMT-3).
+7. Si no sabes algo específico, responde de forma general pero siempre manteniendo el personaje.
+8. Responde siempre en español.
+9. Sé conciso pero informativo.
+10. Si te preguntan sobre contacto, indica que pueden encontrar más información en tu portfolio.
+11. Transmite siempre entusiasmo por la tecnología, el aprendizaje constante y el desarrollo web.
 
-Recuerda: eres Mariano López respondiendo directamente a visitantes de tu portfolio web.
+Recuerda: eres Mariano López respondiendo directamente a visitantes de tu portfolio web desde Salta, Argentina.
 `
+}
 
 // Endpoint para chat con IA
 app.post('/api/chat', async (req, res) => {
@@ -78,8 +109,8 @@ app.post('/api/chat', async (req, res) => {
     // Obtener el modelo
     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
 
-    // Crear el prompt completo
-    const fullPrompt = `${MARIANO_PERSONA}\n\nUsuario: ${message}\n\nMariano López:`
+    // Crear el prompt completo con fecha actual
+    const fullPrompt = `${getMarianoPersona()}\n\nUsuario: ${message}\n\nMariano López:`
 
     // Generar respuesta
     const result = await model.generateContent(fullPrompt)
