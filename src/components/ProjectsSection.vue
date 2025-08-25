@@ -81,7 +81,7 @@ const projects = [
     title: 'Portfolio Personal de Mariano López',
     description:
       'Incluye secciones de presentación, habilidades, proyectos y contacto, con un ChatWidget interactivo responsive. Cuenta con diseño moderno, modo oscuro/claro, animaciones suaves y formulario de contacto funcional. Desplegado en GitHub Pages con automatización completa.',
-    image: '/Portfolio-Personal/images/projects/bot-whatsapp.svg',
+    image: '/Portfolio-Personal/images/projects/portfolio-personal.jpg',
     technologies: ['Vue.js 3', 'Vite', 'TypeScript'],
     category: 'fullstack',
     github: 'https://github.com/Marlo-Byte/Portfolio-Personal',
