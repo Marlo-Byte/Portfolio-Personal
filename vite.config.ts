@@ -12,5 +12,5 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  // base: '/Portfolio-Personal/', // Comentado temporalmente para debugging
+  base: '/Portfolio-Personal/', // Necesario para GitHub Pages
 })
