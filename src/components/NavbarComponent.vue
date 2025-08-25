@@ -31,7 +31,7 @@ const scrollToSection = (sectionId: string) => {
       <div class="nav-content">
         <!-- Logo -->
         <div class="logo">
-          <a href="./" class="logo-link">
+          <a href="/" class="logo-link">
             <i class="fab fa-node-js"></i>
             <span>Mariano López</span>
           </a>
