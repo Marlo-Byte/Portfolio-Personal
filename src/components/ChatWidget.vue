@@ -81,9 +81,14 @@
               v-model="currentMessage"
               @keypress.enter="sendMessage"
               @input="handleInput"
+              @focus="scrollToBottom"
               placeholder="Escribe tu mensaje..."
               :disabled="isLoading"
               class="message-input"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="sentences"
+              spellcheck="true"
             />
             <button
               @click="sendMessage"
@@ -104,7 +109,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick, computed, watch } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick, computed, watch } from 'vue'
 
 interface Message {
   id: string
@@ -260,12 +265,28 @@ const simulateAIResponse = async (userMessage: string) => {
 
 const scrollToBottom = () => {
   if (messagesContainer.value) {
-    messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight
+    // Usar requestAnimationFrame para mejor rendimiento en móviles
+    requestAnimationFrame(() => {
+      if (messagesContainer.value) {
+        messagesContainer.value.scrollTop = messagesContainer.value.scrollHeight
+        // Fallback para dispositivos que no soportan smooth scroll
+        messagesContainer.value.scrollTo({
+          top: messagesContainer.value.scrollHeight,
+          behavior: 'smooth'
+        })
+      }
+    })
   }
 }
 
 const handleInput = () => {
   // Aquí se puede agregar lógica para mostrar "escribiendo" al usuario
+  // En móviles, asegurar que el input esté visible cuando aparece el teclado
+  if (window.innerWidth <= 768) {
+    setTimeout(() => {
+      scrollToBottom()
+    }, 300) // Delay para esperar a que aparezca el teclado
+  }
 }
 
 // Función para cargar sessionId desde localStorage
@@ -284,10 +305,28 @@ const saveSessionId = (id: string) => {
   localStorage.setItem('chat-session-id', id)
 }
 
+// Manejar cambios de orientación en móviles
+const handleResize = () => {
+  if (isOpen.value && window.innerWidth <= 768) {
+    setTimeout(() => {
+      scrollToBottom()
+    }, 100)
+  }
+}
+
 // Lifecycle
 onMounted(() => {
   console.log('🎯 ChatWidget montado correctamente')
   loadSessionId()
+  
+  window.addEventListener('resize', handleResize)
+  window.addEventListener('orientationchange', handleResize)
+})
+
+// Cleanup en unmount
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleResize)
+  window.removeEventListener('orientationchange', handleResize)
 })
 
 // Watcher para guardar sessionId cuando cambie
@@ -451,9 +490,12 @@ watch(sessionId, (newSessionId) => {
   flex: 1;
   padding: 16px;
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling en iOS */
+  scroll-behavior: smooth;
 }
 
 .message {
@@ -657,18 +699,199 @@ watch(sessionId, (newSessionId) => {
   .chat-widget {
     bottom: 10px;
     right: 10px;
+    left: 10px;
   }
   
   .chat-window {
     width: calc(100vw - 20px);
-    height: calc(100vh - 100px);
+    height: calc(100vh - 120px);
     bottom: 70px;
-    right: -10px;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    border-radius: 12px;
+    max-height: 600px;
   }
   
   .chat-toggle-btn {
-    width: 50px;
-    height: 50px;
+    width: 56px;
+    height: 56px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .chat-header {
+    padding: 12px 16px;
+  }
+  
+  .chat-avatar {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .chat-info h4 {
+    font-size: 15px;
+  }
+  
+  .status {
+    font-size: 11px;
+  }
+  
+  .chat-messages {
+    padding: 12px;
+    gap: 10px;
+  }
+  
+  .message {
+    max-width: 85%;
+  }
+  
+  .message-content {
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 16px;
+  }
+  
+  .chat-input {
+    padding: 12px;
+  }
+  
+  .message-input {
+    padding: 10px 14px;
+    font-size: 16px; /* Evita zoom en iOS */
+    border-radius: 20px;
+  }
+  
+  .send-btn {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-widget {
+    bottom: 8px;
+    right: 8px;
+    left: 8px;
+  }
+  
+  .chat-window {
+    width: calc(100vw - 16px);
+    height: calc(100vh - 100px);
+    bottom: 64px;
+    border-radius: 8px;
+    max-height: none;
+  }
+  
+  .chat-toggle-btn {
+    width: 52px;
+    height: 52px;
+    bottom: 16px;
+    right: 16px;
+  }
+  
+  .chat-header {
+    padding: 10px 12px;
+  }
+  
+  .chat-avatar {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .chat-info h4 {
+    font-size: 14px;
+  }
+  
+  .status {
+    font-size: 10px;
+  }
+  
+  .chat-messages {
+    padding: 10px;
+    gap: 8px;
+  }
+  
+  .message {
+    max-width: 90%;
+  }
+  
+  .message-content {
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 14px;
+  }
+  
+  .message-time {
+    font-size: 10px;
+  }
+  
+  .chat-input {
+    padding: 10px;
+  }
+  
+  .message-input {
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 18px;
+  }
+  
+  .send-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+  }
+  
+  .clear-btn,
+  .close-btn {
+    padding: 6px;
+  }
+  
+  .clear-btn svg,
+  .close-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Mejoras adicionales para touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .chat-toggle-btn {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .send-btn,
+  .clear-btn,
+  .close-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .message-input {
+    font-size: 16px; /* Previene zoom automático en iOS */
+  }
+}
+
+/* Landscape orientation en móviles */
+@media (max-width: 768px) and (orientation: landscape) {
+  .chat-window {
+    height: calc(100vh - 80px);
+    max-height: 400px;
+  }
+  
+  .chat-messages {
+    padding: 8px;
+  }
+  
+  .chat-header {
+    padding: 8px 12px;
+  }
+  
+  .chat-input {
+    padding: 8px;
   }
 }
 </style>
