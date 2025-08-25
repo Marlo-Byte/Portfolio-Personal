@@ -1,0 +1,10 @@
+[build]
+builder = "NIXPACKS"
+watchPatterns = ["backend/**"]
+
+[deploy]
+startCommand = "cd backend && npm start"
+workingDirectory = "backend"
+
+[env]
+NODE_ENV = "production"
