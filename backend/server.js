@@ -154,7 +154,7 @@ app.use('*', (req, res) => {
 })
 
 // Iniciar servidor
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Servidor corriendo en puerto ${PORT}`)
   console.log(`📡 API disponible en http://localhost:${PORT}/api`)
   console.log(`💬 Chat endpoint: http://localhost:${PORT}/api/chat`)
