@@ -46,7 +46,7 @@ const timeline = [
   {
     year: '2025',
     title: 'Programa de Entrenamiento Laboral (PEL)',
-    institution: 'C-TRANS',
+    institution: 'TECLAB',
     location: 'Presencial (Salta Capital, Argentina)',
     description:
       'Tuve la oportunidad de participar en este programa que me permitió ganar experiencia práctica en el mundo laboral. Allí pude fortalecer mis habilidades, aprender nuevas formas de trabajo y prepararme mejor para futuros desafíos profesionales.',

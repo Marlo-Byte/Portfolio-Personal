@@ -43,7 +43,8 @@ const projects = [
   {
     id: 2,
     title: 'Adivina Numero',
-    description: 'Proyecto desafío, realizado por mi equipo de pasantia para la empresa TECLAB',
+    description:
+      'Proyecto desafío, que realizamos junto a mi equipo de pasantia para la empresa TECLAB',
     image: '/Portfolio-Personal/images/projects/adivina-numero.jpg',
     technologies: ['JavaScript', 'CSS', 'HTML'],
     category: 'fullstack',
@@ -54,7 +55,8 @@ const projects = [
   {
     id: 3,
     title: 'TicTacTareas',
-    description: 'Proyecto desafío, realizado por mi equipo de pasantia para la empresa TECLAB',
+    description:
+      'Proyecto desafío, que realizamos junto a mi equipo de pasantia para la empresa TECLAB',
     image: '/Portfolio-Personal/images/projects/project3.svg',
     technologies: ['Vue.js 3', 'JavaScript', 'CSS', 'HTML'],
     category: 'frontend',
@@ -72,6 +74,18 @@ const projects = [
     category: 'fullstack',
     github: 'https://github.com/Marlo-Byte/Bot-Whatsapp',
     demo: 'https://demo.com',
+    featured: false,
+  },
+  {
+    id: 5,
+    title: 'Portfolio Personal de Mariano López',
+    description:
+      'Incluye secciones de presentación, habilidades, proyectos y contacto, con un ChatWidget interactivo responsive. Cuenta con diseño moderno, modo oscuro/claro, animaciones suaves y formulario de contacto funcional. Desplegado en GitHub Pages con automatización completa.',
+    image: '/Portfolio-Personal/images/projects/bot-whatsapp.svg',
+    technologies: ['Vue.js 3', 'Vite', 'TypeScript'],
+    category: 'fullstack',
+    github: 'https://github.com/Marlo-Byte/Portfolio-Personal',
+    demo: 'https://marlo-byte.github.io/Portfolio-Personal/',
     featured: false,
   },
 ]
