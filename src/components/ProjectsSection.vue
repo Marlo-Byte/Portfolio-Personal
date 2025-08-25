@@ -55,7 +55,7 @@ const projects = [
     id: 3,
     title: 'TicTacTareas',
     description: 'Proyecto desafío, realizado por mi equipo de pasantia para la empresa TECLAB',
-    image: '/Portfolio-Personal/images/project3.svg',
+    image: '/Portfolio-Personal/images/projects/project3.svg',
     technologies: ['Vue.js 3', 'JavaScript', 'CSS', 'HTML'],
     category: 'frontend',
     github: 'https://github.com/Marlo-Byte/TicTacTareas',
@@ -67,7 +67,7 @@ const projects = [
     title: 'BOT Whatsapp con IA',
     description:
       'Este proyecto es un bot de WhatsApp y eficiente diseñado para automatizar la atención a clientes y proveedores. Su enfoque principal es guiar a los usuarios a través de un menú interactivo para resolver consultas comunes de forma automática.',
-    image: '',
+    image: '/Portfolio-Personal/images/projects/bot-whatsapp.svg',
     technologies: ['JavaScript'],
     category: 'fullstack',
     github: 'https://github.com/Marlo-Byte/Bot-Whatsapp',

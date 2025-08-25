@@ -7,6 +7,7 @@ import SkillsSection from './components/SkillsSection.vue'
 import ProjectsSection from './components/ProjectsSection.vue'
 import ContactSection from './components/ContactSection.vue'
 import FooterSection from './components/FooterSection.vue'
+import ChatWidget from './components/ChatWidget.vue'
 
 const isDark = ref(false)
 
@@ -42,6 +43,9 @@ onMounted(() => {
       <ContactSection />
     </main>
     <FooterSection />
+
+    <!-- Chat Widget -->
+    <ChatWidget :isDark="isDark" />
   </div>
 </template>
 
