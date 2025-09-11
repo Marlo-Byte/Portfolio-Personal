@@ -66,7 +66,7 @@ const timeline = [
     institution: 'C-TRANS',
     location: 'Presencial (Salta Capital, Argentina)',
     description: 'Gestor de transporte: Transporte de carga general, internacional y peligrosa',
-    certificate: 'https://ejemplo.com/certificado-transporte', // Ejemplo de link externo
+    certificate: '/Portfolio-Personal/certificates/ctrans_certificado.pdf', // Ejemplo de link externo
   },
 ]
 </script>
