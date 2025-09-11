@@ -45,6 +45,14 @@ const timeline = [
   },
   {
     year: '2025',
+    title: 'Actualización Profesional en Inteligencia Artificial',
+    institution: 'TECLAB',
+    location: 'Online',
+    description: 'Formación en fundamentos de Inteligencia Artificial, aprendizaje automático y aplicaciones prácticas en diferentes IA.',
+    certificate: '/Portfolio-Personal/certificates/ia.pdf', // Ejemplo de link externo
+  },
+  {
+    year: '2025',
     title: 'Programa de Entrenamiento Laboral (PEL)',
     institution: 'TECLAB',
     location: 'Presencial (Salta Capital, Argentina)',
