@@ -88,7 +88,7 @@ const scrollToProjects = () => {
         <div class="hero-image">
           <div class="image-container">
             <div class="profile-image">
-              <img src="/images/marianotraje.jpg" alt="Mariano López - Full Stack Developer" />
+              <img src="/images/TRAJE_FORMAL.jpg" alt="Mariano López - Full Stack Developer" />
             </div>
           </div>
         </div>
