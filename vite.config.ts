@@ -12,5 +12,5 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  // base: '/Portfolio-Personal/', // Comentado para Vercel
+  base: '/Portfolio-Personal/', // Necesario para GitHub Pages
 })

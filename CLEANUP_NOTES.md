@@ -85,3 +85,4 @@ NODE_ENV=development
 ---
 
 **¡Tu portfolio está ahora completamente optimizado para Vercel! 🎉**
+

@@ -105,3 +105,4 @@ Si tienes problemas:
 1. Revisar los logs en Vercel Dashboard
 2. Verificar la documentación de Vercel
 3. Comprobar que todas las variables de entorno estén configuradas
+
