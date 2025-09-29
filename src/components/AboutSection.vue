@@ -48,7 +48,8 @@ const timeline = [
     title: 'Actualización Profesional en Inteligencia Artificial',
     institution: 'TECLAB',
     location: 'Online',
-    description: 'Formación en fundamentos de Inteligencia Artificial, aprendizaje automático y aplicaciones prácticas en diferentes IA.',
+    description:
+      'Formación en fundamentos de Inteligencia Artificial, aprendizaje automático y aplicaciones prácticas en diferentes IA.',
     certificate: '/Portfolio-Personal/certificates/ia.pdf', // Ejemplo de link externo
   },
   {
