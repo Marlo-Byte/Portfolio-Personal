@@ -2,7 +2,7 @@
 
 ## 📋 Descripción
 
-Portfolio personal desarrollado con Vue.js 3, TypeScript y Vite. Presenta mis habilidades como desarrollador Full Stack, proyectos realizados y información de contacto. El sitio incluye modo oscuro/claro, animaciones suaves y diseño responsive.
+Portfolio personal desarrollado con Vue.js 3, TypeScript y Vite. Presenta mis habilidades como desarrollador Full Stack, proyectos realizados y información de contacto. El sitio incluye modo oscuro/claro, animaciones suaves, diseño responsive y un chat con IA personalizada.
 
 ## 🚀 Tecnologías Utilizadas
 
@@ -13,44 +13,51 @@ Portfolio personal desarrollado con Vue.js 3, TypeScript y Vite. Presenta mis ha
 - **Routing**: Vue Router 4
 - **Estilos**: CSS3 con variables CSS personalizadas
 - **Email Service**: EmailJS para formulario de contacto
-- **Deployment**: GitHub Pages
+- **Backend**: Node.js + Express
+- **IA**: Google Gemini AI para chat personalizado
+- **Deployment**: Vercel (Full-Stack)
 
 ## 📁 Estructura del Proyecto
 
 ```
-Portfolio3/
-├── public/                     # Archivos estáticos
-│   ├── certificates/          # Certificados en PDF
-│   ├── images/               # Imágenes del portfolio
-│   │   ├── projects/         # Capturas de proyectos
-│   │   ├── marianotraje.jpg  # Foto profesional
-│   │   └── yo_animado.jpg    # Avatar animado
-│   └── favicon.ico           # Icono del sitio
-├── src/
-│   ├── components/           # Componentes Vue reutilizables
-│   │   ├── NavbarComponent.vue    # Barra de navegación
-│   │   ├── HeroSection.vue        # Sección principal/presentación
-│   │   ├── AboutSection.vue       # Sección "Sobre mí"
-│   │   ├── SkillsSection.vue      # Habilidades técnicas
-│   │   ├── ProjectsSection.vue    # Galería de proyectos
-│   │   ├── ContactSection.vue     # Formulario de contacto
-│   │   └── FooterSection.vue      # Pie de página
-│   ├── assets/               # Recursos del proyecto
-│   │   ├── base.css         # Estilos base y variables CSS
-│   │   ├── main.css         # Estilos principales
-│   │   └── styles/          # Estilos adicionales
-│   ├── router/              # Configuración de rutas
-│   │   └── index.ts         # Definición de rutas
-│   ├── views/               # Vistas principales
-│   │   └── HomeView.vue     # Vista principal
-│   ├── App.vue              # Componente raíz
-│   └── main.ts              # Punto de entrada de la aplicación
-├── dist/                    # Build de producción
-├── .vscode/                 # Configuración de VS Code
-├── package.json             # Dependencias y scripts
-├── vite.config.ts          # Configuración de Vite
-├── tsconfig.json           # Configuración de TypeScript
-└── README.md               # Este archivo
+Portfolio-Personal/
+├── api/                     # Serverless functions para Vercel
+│   └── index.js            # API del chat con IA
+├── backend/                 # Backend original (legacy)
+│   ├── server.js           # Servidor Express original
+│   └── package.json        # Dependencias del backend
+├── public/                  # Archivos estáticos
+│   ├── certificates/       # Certificados en PDF
+│   ├── images/            # Imágenes del portfolio
+│   │   ├── projects/      # Capturas de proyectos
+│   │   ├── marianotraje.jpg # Foto profesional
+│   │   └── yo_animado.jpg # Avatar animado
+│   └── favicon.ico        # Icono del sitio
+├── src/                    # Frontend Vue.js
+│   ├── components/        # Componentes Vue reutilizables
+│   │   ├── NavbarComponent.vue  # Barra de navegación
+│   │   ├── HeroSection.vue      # Sección principal/presentación
+│   │   ├── AboutSection.vue     # Sección "Sobre mí"
+│   │   ├── SkillsSection.vue    # Habilidades técnicas
+│   │   ├── ProjectsSection.vue  # Galería de proyectos
+│   │   ├── ContactSection.vue   # Formulario de contacto
+│   │   └── FooterSection.vue    # Pie de página
+│   ├── assets/            # Recursos del proyecto
+│   │   ├── base.css      # Estilos base y variables CSS
+│   │   ├── main.css      # Estilos principales
+│   │   └── styles/       # Estilos adicionales
+│   ├── router/           # Configuración de rutas
+│   │   └── index.ts      # Definición de rutas
+│   ├── views/            # Vistas principales
+│   │   └── HomeView.vue  # Vista principal
+│   ├── App.vue           # Componente raíz
+│   └── main.ts           # Punto de entrada de la aplicación
+├── vercel.json            # Configuración de Vercel
+├── package.json           # Dependencias y scripts
+├── vite.config.ts         # Configuración de Vite
+├── tsconfig.json          # Configuración de TypeScript
+├── VERCEL_DEPLOY.md       # Guía de deploy en Vercel
+└── README.md             # Este archivo
 ```
 
 ## 🧩 Componentes Principales
@@ -119,9 +126,6 @@ npm run test:unit    # Ejecuta tests unitarios
 # Linting y Formato
 npm run lint         # Ejecuta ESLint
 npm run format       # Formatea código con Prettier
-
-# Deployment
-npm run deploy       # Despliega a GitHub Pages
 ```
 
 ### Dependencias Principales
@@ -139,7 +143,6 @@ npm run deploy       # Despliega a GitHub Pages
 - **Prettier**: Formateo de código
 - **Vitest**: Testing framework
 - **Vue DevTools**: Herramientas de desarrollo
-- **gh-pages**: Deployment a GitHub Pages
 
 ## 🎨 Características
 
@@ -179,15 +182,41 @@ npm run build
 
 ## 🌐 Deployment
 
-El proyecto está configurado para desplegarse automáticamente en GitHub Pages:
+El proyecto está configurado para desplegarse automáticamente en **Vercel**:
 
-```bash
-npm run deploy
+1. **Conecta tu repositorio** en [vercel.com](https://vercel.com)
+2. **Configura las variables de entorno**:
+   - `GEMINI_API_KEY`: Tu API key de Google Gemini
+3. **Deploy automático** en cada push a GitHub
+
+Para más detalles, consulta [VERCEL_DEPLOY.md](./VERCEL_DEPLOY.md)
+
+## 🤖 Chat con IA Personalizada
+
+El portfolio incluye un chat con IA que responde como Mariano López:
+
+- **Backend**: API serverless en Vercel Functions
+- **IA**: Google Gemini AI
+- **Características**: Memoria de conversación, respuestas personalizadas
+- **Endpoints**:
+  - `POST /api/chat` - Chat principal
+  - `GET /api/health` - Health check
+  - `GET /api/info` - Información de la API
+
+## 📝 Configuración de Variables de Entorno
+
+### Para Vercel (Producción):
+```
+GEMINI_API_KEY=tu_api_key_de_google_gemini
 ```
 
-Esto ejecutará el build y subirá los archivos a la rama `gh-pages`.
+### Para desarrollo local (.env):
+```
+GEMINI_API_KEY=tu_api_key_de_google_gemini
+NODE_ENV=development
+```
 
-## 📝 Configuración de EmailJS
+## 📧 Configuración de EmailJS
 
 Para que el formulario de contacto funcione, necesitas:
 
