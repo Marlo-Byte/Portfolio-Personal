@@ -169,7 +169,7 @@ app.post('/api/chat', async (req, res) => {
     }
 
     // Obtener el modelo
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' })
 
     // Construir el historial de conversación para el prompt
     let conversationHistory = ''
