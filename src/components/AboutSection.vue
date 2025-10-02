@@ -62,6 +62,22 @@ const timeline = [
     certificate: '/Portfolio-Personal/certificates/pel.pdf', // Ejemplo de link externo
   },
   {
+    year: '2025',
+    title: 'Semana de Excel en la Práctica',
+    institution: 'Daxus Latam',
+    location: 'Online',
+    description: 'Certificado de participación en taller práctico de Excel (8 horas académicas) con enfoque en fórmulas, tablas dinámicas y herramientas de análisis para optimización de procesos.',
+    certificate: '/Portfolio-Personal/certificates/semana_de_excel.pdf', // Ejemplo de link externo
+  },
+  {
+    year: '2024',
+    title: 'Fundamentos de Ethical Hacking',
+    institution: 'Seguridad CERO',
+    location: 'Online',
+    description: 'Formación introductoria en Ethical Hacking (4 horas académicas) con enfoque en principios de ciberseguridad, análisis de vulnerabilidades y buenas prácticas de seguridad informática.',
+    certificate: '/Portfolio-Personal/certificates/seguridadcero.pdf', // Ejemplo de certificado
+  },
+  {
     year: '2020-2021',
     title: 'Asistente en Higiene y Seguridad',
     institution: 'Instituto NOVAEDU',
