@@ -28,48 +28,76 @@ onMounted(() => {
 
 const skillCategories = [
   {
-    title: 'Frontend',
+    title: 'Frontend Development',
     icon: '🎨',
+    description: 'Interfaces modernas y experiencias de usuario excepcionales',
     skills: [
-      { name: 'Vue.js', level: 85, color: '#4FC08D' },
-      { name: 'React', level: 80, color: '#61DAFB' },
-      { name: 'JavaScript', level: 90, color: '#F7DF1E' },
-      { name: 'TypeScript', level: 75, color: '#3178C6' },
-      { name: 'HTML5', level: 95, color: '#E34F26' },
-      { name: 'CSS3', level: 90, color: '#1572B6' },
-      { name: 'Tailwind CSS', level: 85, color: '#06B6D4' },
+      { name: 'Vue.js 3', iconClass: 'devicon-vuejs-plain', color: '#4FC08D', featured: true },
+      { name: 'JavaScript ES6+', iconClass: 'devicon-javascript-plain', color: '#F7DF1E', featured: true },
+      { name: 'TypeScript', iconClass: 'devicon-typescript-plain', color: '#3178C6', featured: true },
+      { name: 'HTML5', iconClass: 'devicon-html5-plain', color: '#E34F26' },
+      { name: 'CSS3', iconClass: 'devicon-css3-plain', color: '#1572B6' },
+      { name: 'Tailwind CSS', iconClass: 'devicon-tailwindcss-plain', color: '#06B6D4' },
+      { name: 'Vuetify', iconClass: 'devicon-vuetify-plain', color: '#1867C0' },
+      { name: 'React', iconClass: 'devicon-react-original', color: '#61DAFB' },
     ],
   },
   {
-    title: 'Backend',
+    title: 'Backend Development',
     icon: '⚙️',
+    description: 'APIs robustas y arquitecturas escalables',
     skills: [
-      { name: 'Node.js', level: 80, color: '#339933' },
-      { name: 'Python', level: 70, color: '#3776AB' },
-      { name: 'PHP', level: 65, color: '#777BB4' },
+      { name: 'Node.js', iconClass: 'devicon-nodejs-plain', color: '#339933', featured: true },
+      { name: 'Express.js', iconClass: 'devicon-express-original', color: '#68CC00', featured: true },
+      { name: 'REST APIs', icon: '🔗', color: '#FF6B35', featured: true },
+      { name: 'Python', iconClass: 'devicon-python-plain', color: '#3776AB' },
+      { name: 'Serverless Functions', icon: '☁️', color: '#FF9500' },
     ],
   },
   {
-    title: 'Base de Datos',
+    title: 'Inteligencia Artificial',
+    icon: '🤖',
+    description: 'Integración de IA y procesamiento de lenguaje natural',
+    skills: [
+      { name: 'Google Gemini API', icon: '🔮', color: '#4285F4', featured: true },
+      { name: 'AI Prompt Engineering', icon: '🧠', color: '#FF6B6B', featured: true },
+      { name: 'ChatGPT Integration', icon: '💬', color: '#10A37F' },
+      { name: 'Natural Language Processing', icon: '📝', color: '#4ECDC4' },
+    ],
+  },
+  {
+    title: 'Bases de Datos',
     icon: '🗄️',
+    description: 'Gestión eficiente de datos y persistencia',
     skills: [
-      { name: 'MySQL', level: 80, color: '#4479A1' },
-      { name: 'PostgreSQL', level: 75, color: '#336791' },
-      { name: 'MongoDB', level: 70, color: '#47A248' },
-      { name: 'Firebase', level: 65, color: '#FFCA28' },
-      { name: 'Postman', level: 65, color: '#FFCA28' },
+      { name: 'MySQL', iconClass: 'devicon-mysql-plain', color: '#4479A1', featured: true },
+      { name: 'PostgreSQL', iconClass: 'devicon-postgresql-plain', color: '#336791' },
+      { name: 'MongoDB', iconClass: 'devicon-mongodb-plain', color: '#47A248' },
+      { name: 'Firebase', iconClass: 'devicon-firebase-plain', color: '#FFCA28' },
     ],
   },
   {
-    title: 'Herramientas & DevOps',
+    title: 'DevOps & Herramientas',
     icon: '🛠️',
+    description: 'Desarrollo, despliegue y colaboración eficiente',
     skills: [
-      { name: 'Git', level: 85, color: '#F05032' },
-      { name: 'Vite', level: 80, color: '#646CFF' },
-      { name: 'Webpack', level: 70, color: '#8DD6F9' },
-      { name: 'VS Code', level: 95, color: '#007ACC' },
-      { name: 'Figma', level: 75, color: '#F24E1E' },
-      { name: 'Sourcetree', level: 75, color: '#F24E1E' },
+      { name: 'Git & GitHub', iconClass: 'devicon-git-plain', color: '#F05032', featured: true },
+      { name: 'Vercel', icon: '▲', color: '#000000', featured: true },
+      { name: 'VS Code', iconClass: 'devicon-vscode-plain', color: '#007ACC' },
+      { name: 'Vite', iconClass: 'devicon-vitejs-plain', color: '#646CFF' },
+      { name: 'Postman', icon: '📮', color: '#FF6C37' },
+      { name: 'Docker', iconClass: 'devicon-docker-plain', color: '#2496ED' },
+    ],
+  },
+  {
+    title: 'Especialidades Profesionales',
+    icon: '🎓',
+    description: 'Certificaciones y conocimientos especializados',
+    skills: [
+      { name: 'Higiene y Seguridad Laboral', icon: '🛡️', color: '#28A745', featured: true },
+      { name: 'Gestión de Transporte', icon: '🚛', color: '#FFC107', featured: true },
+      { name: 'Entrenamiento Laboral (PEL)', icon: '👥', color: '#17A2B8' },
+      { name: 'Análisis de Datos (Excel)', icon: '📊', color: '#217346' },
     ],
   },
 ]
@@ -78,32 +106,42 @@ const softSkills = [
   {
     name: 'Resolución de Problemas',
     icon: '🧩',
-    description: 'Capacidad para analizar y resolver problemas complejos de manera eficiente',
+    description: 'Análisis sistemático y resolución eficiente de problemas técnicos complejos',
   },
   {
-    name: 'Trabajo en Equipo',
-    icon: '👥',
-    description: 'Colaboración efectiva en equipos multidisciplinarios y diversos',
+    name: 'Adaptabilidad',
+    icon: '🔄',
+    description: 'Capacidad para adaptarse rápidamente a nuevas tecnologías y metodologías',
   },
   {
-    name: 'Comunicación',
+    name: 'Comunicación Técnica',
     icon: '💬',
-    description: 'Habilidad para explicar conceptos técnicos de manera clara y concisa',
+    description: 'Habilidad para explicar conceptos técnicos complejos de manera clara',
   },
   {
     name: 'Aprendizaje Continuo',
     icon: '📚',
-    description: 'Pasión por mantenerse actualizado con las últimas tecnologías',
+    description: 'Pasión por mantenerse actualizado con las últimas tendencias tecnológicas',
   },
   {
-    name: 'Gestión del Tiempo',
-    icon: '⏰',
-    description: 'Organización eficiente de tareas y cumplimiento de deadlines',
+    name: 'Gestión de Proyectos',
+    icon: '📋',
+    description: 'Organización eficiente de tareas, recursos y cumplimiento de deadlines',
   },
   {
-    name: 'Creatividad',
+    name: 'Pensamiento Analítico',
+    icon: '🔍',
+    description: 'Capacidad para analizar datos y tomar decisiones basadas en evidencia',
+  },
+  {
+    name: 'Innovación',
     icon: '💡',
-    description: 'Enfoque innovador para crear soluciones únicas y atractivas',
+    description: 'Enfoque creativo para desarrollar soluciones únicas y eficientes',
+  },
+  {
+    name: 'Trabajo Colaborativo',
+    icon: '🤝',
+    description: 'Colaboración efectiva en equipos multidisciplinarios y remotos',
   },
 ]
 </script>
@@ -113,9 +151,9 @@ const softSkills = [
     <div class="container">
       <div class="skills-content" :class="{ visible: isVisible }">
         <div class="skills-header">
-          <h2 class="section-title">Habilidades Técnicas</h2>
+          <h2 class="section-title">Stack Tecnológico & Habilidades</h2>
           <p class="section-subtitle">
-            Tecnologías y herramientas que domino para crear soluciones completas
+            Tecnologías modernas, herramientas especializadas y competencias profesionales que utilizo para desarrollar soluciones completas e innovadoras
           </p>
         </div>
 
@@ -128,29 +166,36 @@ const softSkills = [
           >
             <div class="category-header">
               <span class="category-icon">{{ category.icon }}</span>
-              <h3 class="category-title">{{ category.title }}</h3>
+              <div class="category-info">
+                <h3 class="category-title">{{ category.title }}</h3>
+                <p class="category-description">{{ category.description }}</p>
+              </div>
             </div>
-            <div class="skills-grid">
+            <div class="skills-tags">
               <div
                 v-for="(skill, skillIndex) in category.skills"
                 :key="skillIndex"
-                class="skill-item"
-                :style="{ animationDelay: `${categoryIndex * 0.1 + skillIndex * 0.05}s` }"
+                class="skill-tag"
+                :class="{ featured: skill.featured }"
+                :style="{
+                  '--skill-color': skill.color,
+                  animationDelay: `${categoryIndex * 0.1 + skillIndex * 0.05}s`
+                }"
               >
-                <div class="skill-info">
-                  <span class="skill-name">{{ skill.name }}</span>
-                  <span class="skill-percentage">{{ skill.level }}%</span>
-                </div>
-                <div class="skill-bar">
-                  <div
-                    class="skill-progress"
-                    :style="{
-                      width: isVisible ? `${skill.level}%` : '0%',
-                      backgroundColor: skill.color,
-                      animationDelay: `${categoryIndex * 0.2 + skillIndex * 0.1}s`,
-                    }"
-                  ></div>
-                </div>
+                <i
+                  v-if="skill.iconClass"
+                  :class="skill.iconClass"
+                  class="skill-icon-devicon"
+                ></i>
+                <span
+                  v-else
+                  class="skill-icon"
+                >{{ skill.icon }}</span>
+                <span class="skill-name">{{ skill.name }}</span>
+                <div
+                  v-if="skill.featured"
+                  class="featured-indicator"
+                ></div>
               </div>
             </div>
           </div>
@@ -257,82 +302,123 @@ const softSkills = [
 
 .category-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
 .category-icon {
-  font-size: 2rem;
+  font-size: 2.5rem;
+  flex-shrink: 0;
+}
+
+.category-info {
+  flex: 1;
 }
 
 .category-title {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0;
+  margin: 0 0 0.5rem 0;
 }
 
-.skills-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.skill-item {
-  animation: fadeInLeft 0.6s ease forwards;
-  opacity: 0;
-}
-
-.skill-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.skill-name {
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.skill-percentage {
-  font-size: 0.9rem;
+.category-description {
+  font-size: 0.95rem;
   color: var(--text-secondary);
-  font-weight: 500;
+  margin: 0;
+  line-height: 1.4;
 }
 
-.skill-bar {
-  height: 8px;
-  background-color: var(--border-color);
-  border-radius: 4px;
-  overflow: hidden;
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
-.skill-progress {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 1.5s ease;
+.skill-tag {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+  cursor: default;
 }
 
-.skill-progress::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  animation: shimmer 2s infinite;
+.skill-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  filter: grayscale(100%);
 }
 
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
+.skill-icon-devicon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  filter: grayscale(100%);
+}
+
+.skill-tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: var(--skill-color);
+  background: var(--skill-color);
+  color: white;
+}
+
+.skill-tag:hover .skill-icon,
+.skill-tag:hover .skill-icon-devicon {
+  filter: grayscale(0%);
+}
+
+.skill-tag.featured {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.skill-tag.featured:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  background: var(--skill-color);
+  border-color: var(--skill-color);
+  color: white;
+}
+
+.featured-indicator {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  opacity: 0.4;
+  transition: all 0.3s ease;
+}
+
+.skill-tag.featured:hover .featured-indicator {
+  background: rgba(255, 255, 255, 0.9);
+  opacity: 1;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.9;
   }
-  100% {
-    transform: translateX(100%);
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
   }
 }
 
