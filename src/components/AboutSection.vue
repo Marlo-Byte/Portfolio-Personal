@@ -1,30 +1,70 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 
 const isVisible = ref(false)
 const observer = ref<IntersectionObserver | null>(null)
 const sectionRef = ref<HTMLElement | null>(null)
+const elementsVisible = ref<Set<string>>(new Set())
 
-onMounted(() => {
-  // Usar threshold más bajo en móvil para mejor detección
-  const isMobile = window.innerWidth <= 768
-  const threshold = isMobile ? 0.1 : 0.3
+// Función para manejar la visibilidad de elementos individuales
+const handleElementVisibility = (entries: IntersectionObserverEntry[]) => {
+  entries.forEach((entry) => {
+    const elementId = entry.target.getAttribute('data-animate-id')
+    if (entry.isIntersecting) {
+      if (elementId) {
+        elementsVisible.value.add(elementId)
+      }
+      // Marcar la sección principal como visible
+      if (entry.target === sectionRef.value) {
+        isVisible.value = true
+      }
+    }
+  })
+}
 
-  observer.value = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          isVisible.value = true
-        }
-      })
-    },
-    { threshold },
-  )
+onMounted(async () => {
+  await nextTick()
 
+  // Configuración mejorada del IntersectionObserver
+  const options = {
+    root: null,
+    rootMargin: '-10% 0px -10% 0px', // Activar cuando el elemento esté más centrado
+    threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] // Múltiples thresholds para mejor detección
+  }
+
+  observer.value = new IntersectionObserver(handleElementVisibility, options)
+
+  // Observar la sección principal
   if (sectionRef.value) {
     observer.value.observe(sectionRef.value)
   }
+
+  // Observar elementos individuales con animación
+  const animatedElements = document.querySelectorAll('[data-animate-id]')
+  animatedElements.forEach(element => {
+    if (observer.value) {
+      observer.value.observe(element)
+    }
+  })
+
+  // Fallback: activar después de un tiempo si no se detecta
+  setTimeout(() => {
+    if (!isVisible.value) {
+      isVisible.value = true
+    }
+  }, 1000)
 })
+
+onUnmounted(() => {
+  if (observer.value) {
+    observer.value.disconnect()
+  }
+})
+
+// Función helper para verificar si un elemento es visible
+const isElementVisible = (id: string) => {
+  return elementsVisible.value.has(id) || isVisible.value
+}
 
 const stats = [
   { number: '2+', label: 'Años Estudiando' },
@@ -267,15 +307,57 @@ const timeline = [
   position: relative;
 }
 
+/* Animaciones de entrada mejoradas */
 .about-content {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: opacity, transform;
 }
 
 .about-content.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Animaciones escalonadas para elementos */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+
+/* Scroll suave global */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Mejoras de rendimiento */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Animación para elementos que aparecen desde diferentes direcciones */
+.fade-in-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-in-right.visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .about-header {

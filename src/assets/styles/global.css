@@ -84,6 +84,7 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  scroll-padding-top: 80px; /* Espacio para navbar fijo */
 }
 
 body {
@@ -486,22 +487,40 @@ a:hover {
   }
 }
 
-/* Scrollbar Styling */
+/* Scrollbar Styling Mejorado */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
   background: var(--bg-secondary);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--border-color);
   border-radius: 4px;
+  transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--primary-color);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--bg-secondary);
+}
+
+/* Scroll suave para elementos específicos */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* Mejoras de rendimiento para scroll */
+.scroll-container {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 /* Selection Styling */
