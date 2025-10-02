@@ -244,7 +244,48 @@ El proyecto está configurado para desplegarse automáticamente en **Vercel**:
    - `GEMINI_API_KEY`: Tu API key de Google Gemini
 3. **Deploy automático** en cada push a GitHub
 
-Para más detalles, consulta [VERCEL_DEPLOY.md](./VERCEL_DEPLOY.md)
+Para más detalles, consulta [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)
+
+## 📁 Estructura del Proyecto
+
+```
+Portfolio-Personal/
+├── 📁 src/                          # Código fuente principal
+│   ├── 📁 components/              # Componentes Vue organizados
+│   │   ├── 📁 layout/              # Componentes de estructura
+│   │   │   ├── NavbarComponent.vue # Barra de navegación
+│   │   │   ├── FooterSection.vue   # Pie de página
+│   │   │   └── ChatWidget.vue      # Widget de chat con IA
+│   │   └── 📁 sections/            # Secciones principales
+│   │       ├── HeroSection.vue     # Sección hero/presentación
+│   │       ├── AboutSection.vue    # Sobre mí y certificaciones
+│   │       ├── SkillsSection.vue   # Habilidades técnicas
+│   │       ├── ProjectsSection.vue # Proyectos destacados
+│   │       └── ContactSection.vue  # Información de contacto
+│   ├── 📁 composables/             # Lógica reutilizable de Vue
+│   │   └── useTheme.ts            # Manejo de temas claro/oscuro
+│   ├── 📁 types/                   # Definiciones TypeScript
+│   │   └── index.ts               # Tipos principales del proyecto
+│   ├── 📁 utils/                   # Funciones utilitarias
+│   │   └── index.ts               # Utilidades generales
+│   ├── 📁 assets/                  # Estilos y recursos
+│   │   └── 📁 styles/             # Estilos CSS organizados
+│   ├── 📁 router/                  # Configuración de Vue Router
+│   └── 📁 views/                   # Vistas principales
+├── 📁 api/                         # Backend serverless (Vercel)
+│   ├── index.js                   # API principal del chat
+│   └── package.json               # Dependencias del backend
+├── 📁 public/                      # Assets estáticos
+│   ├── 📁 images/                 # Imágenes del proyecto
+│   ├── 📁 certificates/           # Certificados PDF
+│   └── 📁 cv/                     # Curriculum en PDF
+├── 📁 docs/                        # Documentación del proyecto
+│   ├── DEVELOPMENT.md             # Guía de desarrollo
+│   └── DEPLOYMENT.md              # Guía de despliegue
+├── vercel.json                     # Configuración de Vercel
+├── package.json                    # Dependencias y scripts
+└── README.md                       # Este archivo
+```
 
 ## 🤖 Chat con IA Personalizada
 

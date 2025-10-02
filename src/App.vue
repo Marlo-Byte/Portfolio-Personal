@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import NavbarComponent from './components/NavbarComponent.vue'
-import HeroSection from './components/HeroSection.vue'
-import AboutSection from './components/AboutSection.vue'
-import SkillsSection from './components/SkillsSection.vue'
-import ProjectsSection from './components/ProjectsSection.vue'
-import ContactSection from './components/ContactSection.vue'
-import FooterSection from './components/FooterSection.vue'
-import ChatWidget from './components/ChatWidget.vue'
+import NavbarComponent from './components/layout/NavbarComponent.vue'
+import FooterSection from './components/layout/FooterSection.vue'
+import ChatWidget from './components/layout/ChatWidget.vue'
+import HeroSection from './components/sections/HeroSection.vue'
+import AboutSection from './components/sections/AboutSection.vue'
+import SkillsSection from './components/sections/SkillsSection.vue'
+import ProjectsSection from './components/sections/ProjectsSection.vue'
+import ContactSection from './components/sections/ContactSection.vue'
 
 const isDark = ref(false)
 
