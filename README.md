@@ -1,21 +1,51 @@
-# Portfolio Personal - Mariano López
+# 🚀 Portfolio Personal - Mariano López
+
+[![Vue.js](https://img.shields.io/badge/Vue.js-3.5-4FC08D?style=flat-square&logo=vue.js)](https://vuejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=flat-square&logo=node.js)](https://nodejs.org/)
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000?style=flat-square&logo=vercel)](https://vercel.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+
+> Portfolio personal full stack con chat IA integrado, desarrollado con tecnologías modernas y mejores prácticas de desarrollo web.
+
+## 🌟 Demo en Vivo
+
+- **🌐 Sitio Web**: [https://marlo-byte.github.io/Portfolio-Personal/](https://marlo-byte.github.io/Portfolio-Personal/)
+- **🤖 Chat IA**: Prueba el chat inteligente integrado
+- **📱 Responsive**: Optimizado para todos los dispositivos
 
 ## 📋 Descripción
 
-Portfolio personal desarrollado con Vue.js 3, TypeScript y Vite. Presenta mis habilidades como desarrollador Full Stack, proyectos realizados y información de contacto. El sitio incluye modo oscuro/claro, animaciones suaves, diseño responsive y un chat con IA personalizada.
+Portfolio personal desarrollado con Vue.js 3, TypeScript y Node.js. Presenta mis habilidades como desarrollador Full Stack, proyectos realizados e información profesional. Incluye un sistema de chat inteligente con IA Gemini, diseño responsive con Vuetify/Tailwind CSS, modo oscuro/claro, animaciones suaves y certificaciones profesionales.
 
-## 🚀 Tecnologías Utilizadas
+## 🚀 Stack Tecnológico
 
-- **Frontend Framework**: Vue.js 3 con Composition API
-- **Lenguaje**: TypeScript
-- **Build Tool**: Vite
+### Frontend
+- **Framework**: Vue.js 3 con Composition API
+- **Lenguaje**: TypeScript 5.8
+- **Build Tool**: Vite 7.0
+- **UI Framework**: Vuetify + Tailwind CSS
 - **Gestión de Estado**: Pinia
 - **Routing**: Vue Router 4
-- **Estilos**: CSS3 con variables CSS personalizadas
-- **Email Service**: EmailJS para formulario de contacto
-- **Backend**: Node.js + Express
-- **IA**: Google Gemini AI para chat personalizado
-- **Deployment**: Vercel (Full-Stack)
+- **Estilos**: CSS3 con variables personalizadas
+
+### Backend
+- **Runtime**: Node.js 20+
+- **Framework**: Express.js
+- **IA**: Google Gemini 2.0 Flash Experimental
+- **Arquitectura**: Serverless Functions (Vercel)
+
+### Servicios
+- **Email**: EmailJS para formulario de contacto
+- **Deployment**: Vercel (Frontend + Backend)
+- **Hosting**: GitHub Pages (Frontend)
+- **CI/CD**: GitHub Actions automático
+
+### Herramientas de Desarrollo
+- **Linting**: ESLint + Prettier
+- **Testing**: Vitest
+- **DevTools**: Vue DevTools
+- **Version Control**: Git + GitHub
 
 ## 📁 Estructura del Proyecto
 
@@ -144,22 +174,47 @@ npm run format       # Formatea código con Prettier
 - **Vitest**: Testing framework
 - **Vue DevTools**: Herramientas de desarrollo
 
-## 🎨 Características
+## ✨ Características Principales
 
-- **Responsive Design**: Adaptable a todos los dispositivos
-- **Modo Oscuro/Claro**: Toggle de tema con persistencia
-- **Animaciones Suaves**: Transiciones y efectos visuales
-- **SEO Optimizado**: Meta tags y estructura semántica
-- **Performance**: Optimizado para carga rápida
-- **Accesibilidad**: Cumple estándares de accesibilidad web
+### 🎨 Diseño y UX
+- **Responsive Design**: Adaptable a todos los dispositivos (móvil, tablet, desktop)
+- **Modo Oscuro/Claro**: Toggle de tema con persistencia local
+- **Animaciones Suaves**: Transiciones y efectos visuales con IntersectionObserver
+- **UI Moderna**: Diseño limpio con Vuetify y Tailwind CSS
+- **Scroll Suave**: Navegación fluida entre secciones
+
+### 🤖 Chat Inteligente con IA
+- **IA Personalizada**: Responde como Mariano López con contexto profesional
+- **Memoria de Conversación**: Mantiene el contexto durante la sesión
+- **Respuestas en Tiempo Real**: Integración con Google Gemini 2.0
+- **Fallback Robusto**: Sistema de respuestas de emergencia
+
+### 📄 Gestión de Certificaciones
+- **Visualización de PDFs**: Sistema integrado para mostrar certificaciones
+- **Certificados Profesionales**: PEL, IA, Higiene y Seguridad, Gestor de Transporte
+- **Enlaces Directos**: Acceso rápido a documentos oficiales
+
+### ⚡ Performance y SEO
+- **Optimización de Carga**: Lazy loading y code splitting
+- **SEO Optimizado**: Meta tags dinámicos y estructura semántica
+- **PWA Ready**: Preparado para Progressive Web App
+- **Accesibilidad**: Cumple estándares WCAG 2.1
 
 ## 🚀 Instalación y Uso
+
+### 📋 Prerrequisitos
+
+- Node.js 20+
+- npm o yarn
+- Git
+
+### 🔧 Instalación
 
 1. **Clonar el repositorio**
 
 ```bash
-git clone https://github.com/Marlo-Byte
-cd Portfolio3
+git clone https://github.com/Marlo-Byte/Portfolio-Personal.git
+cd Portfolio-Personal
 ```
 
 2. **Instalar dependencias**
@@ -269,13 +324,46 @@ La licencia MIT es una de las más permisivas y populares en el desarrollo de so
 - **Reconocimiento**: Ampliamente aceptada en la industria
 - **Profesionalismo**: Muestra conocimiento de buenas prácticas
 
-## 👨‍💻 Autor
+## 🤝 Contribuciones
 
-**Mariano López**
+Las contribuciones son bienvenidas. Para cambios importantes:
 
-- Email: marianolopgarcia@gmail.com
-- Estudiante de Técnico Superior en Programación - TECLAB
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📞 Contacto
+
+**Mariano López** - Desarrollador Full Stack
+
+- 📧 **Email**: [marianolopgarcia@gmail.com](mailto:marianolopgarcia@gmail.com)
+- 💼 **LinkedIn**: [Mariano López](https://linkedin.com/in/mariano-lopez)
+- 🌐 **Portfolio**: [https://marlo-byte.github.io/Portfolio-Personal/](https://marlo-byte.github.io/Portfolio-Personal/)
+- 📍 **Ubicación**: Salta Capital, Argentina
+
+### 🎓 Formación y Certificaciones
+
+- **Técnico Superior en Programación** - TECLAB (En curso)
+- **Actualización Profesional en Inteligencia Artificial** - TECLAB
+- **Programa de Entrenamiento Laboral (PEL)**
+- **Higiene y Seguridad Laboral**
+- **Gestor de Transporte**
+
+## ⭐ Agradecimientos
+
+- Vue.js team por el excelente framework
+- Google por la API de Gemini
+- Vercel por el hosting gratuito
+- La comunidad open source por las herramientas utilizadas
 
 ---
 
-_Este portfolio fue desarrollado como proyecto personal para mostrar habilidades en desarrollo web moderno con Vue.js y TypeScript._
+<div align="center">
+
+**¿Te gustó el proyecto? ¡Dale una ⭐ en GitHub!**
+
+_Desarrollado con ❤️ por Mariano López usando Vue.js y TypeScript_
+
+</div>
