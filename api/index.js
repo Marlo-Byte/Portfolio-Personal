@@ -1,7 +1,7 @@
 // Vercel Serverless Function - Wrapper para el backend
-const express = require('express')
-const cors = require('cors')
-const { GoogleGenerativeAI } = require('@google/generative-ai')
+import express from 'express'
+import cors from 'cors'
+import { GoogleGenerativeAI } from '@google/generative-ai'
 
 const app = express()
 
@@ -272,4 +272,4 @@ app.use('*', (req, res) => {
   })
 })
 
-module.exports = app
+export default app
