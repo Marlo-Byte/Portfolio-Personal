@@ -44,13 +44,6 @@ const contactInfo = [
     description: 'Envíame un email y te responderé pronto',
   },
   {
-    icon: 'phone',
-    title: 'Teléfono',
-    value: '+54 9 387 4140978',
-    link: 'tel:+5493874140978',
-    description: 'Disponible de Lun-Vie 9:00-18:00',
-  },
-  {
     icon: 'location',
     title: 'Ubicación',
     value: 'Salta Capital, Argentina',
