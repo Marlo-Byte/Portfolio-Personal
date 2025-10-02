@@ -274,7 +274,6 @@ La licencia MIT es una de las más permisivas y populares en el desarrollo de so
 **Mariano López**
 
 - Email: marianolopgarcia@gmail.com
-- Teléfono: +54 9 387 4140978
 - Estudiante de Técnico Superior en Programación - TECLAB
 
 ---
