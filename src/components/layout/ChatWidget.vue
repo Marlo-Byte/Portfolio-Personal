@@ -35,7 +35,7 @@
             <span class="status">{{ isTyping ? 'Escribiendo...' : 'En línea' }}</span>
           </div>
           <div class="chat-actions">
-            <button @click="clearSession" class="clear-btn" title="Nueva conversación">
+            <button @click="clearChatSession" class="clear-btn" title="Nueva conversación">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M3 6H21M8 6V4C8 3.45 8.45 3 9 3H15C15.55 3 16 3.45 16 4V6M19 6V20C19 20.55 18.55 21 18 21H6C5.45 21 5 20.55 5 20V6"
@@ -100,7 +100,7 @@
           <div class="input-container">
             <input
               v-model="currentMessage"
-              @keypress.enter="sendMessage"
+              @keypress.enter="handleSendMessage"
               @input="handleInput"
               @focus="scrollToBottom"
               placeholder="Escribe tu mensaje..."
@@ -112,7 +112,7 @@
               spellcheck="true"
             />
             <button
-              @click="sendMessage"
+              @click="handleSendMessage"
               :disabled="!currentMessage.trim() || isLoading"
               class="send-btn"
             >
@@ -143,6 +143,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, nextTick, computed, watch } from 'vue'
+import { useGeminiChat } from '@/composables/ai/useGeminiChat'
 
 interface Message {
   id: string
@@ -156,11 +157,13 @@ const props = defineProps<{
   isDark?: boolean
 }>()
 
+// Composable para Gemini
+const { isLoading, error, sendMessage, clearSession, getFallbackResponse } = useGeminiChat()
+
 // Estado del chat
 const isOpen = ref(false)
 const currentMessage = ref('')
 const messages = ref<Message[]>([])
-const isLoading = ref(false)
 const isTyping = ref(false)
 const hasNewMessage = ref(false)
 const messagesContainer = ref<HTMLElement>()
@@ -181,9 +184,10 @@ const toggleChat = () => {
 }
 
 // Función para limpiar la sesión (opcional, para empezar conversación nueva)
-const clearSession = () => {
+const clearChatSession = () => {
   sessionId.value = ''
   messages.value = []
+  clearSession(sessionId.value)
 }
 
 const getCurrentTime = () => {
@@ -193,8 +197,8 @@ const getCurrentTime = () => {
   })
 }
 
-const sendMessage = async () => {
-  console.log('📝 sendMessage llamado con:', currentMessage.value)
+const handleSendMessage = async () => {
+  console.log('📝 handleSendMessage llamado con:', currentMessage.value)
   if (!currentMessage.value.trim() || isLoading.value) return
 
   const userMessage: Message = {
@@ -211,50 +215,25 @@ const sendMessage = async () => {
   await nextTick()
   scrollToBottom()
 
-  // Simular respuesta de IA (aquí se conectará con Gemini)
-  await simulateAIResponse(messageToSend)
+  // Enviar mensaje a Gemini
+  await sendMessageToGemini(messageToSend)
 }
 
-const simulateAIResponse = async (userMessage: string) => {
-  isLoading.value = true
+const sendMessageToGemini = async (userMessage: string) => {
   isTyping.value = true
 
   try {
-    // Llamada real a la API de Gemini a través del backend
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001'
-    console.log('🚀 Enviando mensaje:', { userMessage, sessionId: sessionId.value, apiUrl })
-    const response = await fetch(`${apiUrl}/api/chat`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        message: userMessage,
-        sessionId: sessionId.value || undefined,
-      }),
-    })
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+    // Generar sessionId si no existe
+    if (!sessionId.value) {
+      sessionId.value = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+      console.log('🔑 Nuevo sessionId generado:', sessionId.value)
     }
 
-    const data = await response.json()
-    console.log('📨 Respuesta recibida:', data)
+    console.log('🚀 Enviando mensaje a Gemini:', { userMessage, sessionId: sessionId.value })
 
-    // Actualizar sessionId si se recibe del backend
-    if (data.sessionId) {
-      sessionId.value = data.sessionId
-      console.log('🔑 SessionId actualizado:', sessionId.value)
-    }
-
-    let botResponse = ''
-    if (data.response) {
-      botResponse = data.response
-    } else if (data.fallbackResponse) {
-      botResponse = data.fallbackResponse
-    } else {
-      throw new Error('No response received')
-    }
+    // Enviar mensaje usando el composable
+    const botResponse = await sendMessage(userMessage, sessionId.value)
+    console.log('📨 Respuesta recibida de Gemini:', botResponse)
 
     const botMessage: Message = {
       id: Date.now().toString(),
@@ -272,18 +251,13 @@ const simulateAIResponse = async (userMessage: string) => {
     await nextTick()
     scrollToBottom()
   } catch (error) {
-    console.error('Error al enviar mensaje:', error)
+    console.error('Error al enviar mensaje a Gemini:', error)
 
-    let errorContent =
-      'Lo siento, hubo un error al procesar tu mensaje. Por favor, inténtalo de nuevo.'
+    let errorContent = getFallbackResponse()
 
-    // Mensajes de error más específicos
-    if (error instanceof TypeError && error.message.includes('fetch')) {
-      errorContent =
-        'No puedo conectarme con el servidor en este momento. Asegúrate de que el servidor backend esté ejecutándose.'
-    } else if (error instanceof Error && error.message.includes('HTTP error')) {
-      errorContent =
-        'Hay un problema con el servidor. Por favor, inténtalo de nuevo en unos minutos.'
+    // Usar el error del composable si está disponible
+    if (error.value) {
+      errorContent = error.value
     }
 
     const errorMessage: Message = {
@@ -294,7 +268,6 @@ const simulateAIResponse = async (userMessage: string) => {
     }
     messages.value.push(errorMessage)
   } finally {
-    isLoading.value = false
     isTyping.value = false
   }
 }

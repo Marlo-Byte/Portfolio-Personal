@@ -3,7 +3,7 @@
 [![Vue.js](https://img.shields.io/badge/Vue.js-3.5-4FC08D?style=flat-square&logo=vue.js)](https://vuejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=flat-square&logo=node.js)](https://nodejs.org/)
-[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000?style=flat-square&logo=vercel)](https://vercel.com/)
+[![GitHub Pages](https://img.shields.io/badge/Deployed%20on-GitHub%20Pages-181717?style=flat-square&logo=github)](https://pages.github.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
 > Portfolio personal full stack con chat IA integrado, desarrollado con tecnologías modernas y mejores prácticas de desarrollo web.
@@ -29,16 +29,15 @@ Portfolio personal desarrollado con Vue.js 3, TypeScript y Node.js. Presenta mis
 - **Routing**: Vue Router 4
 - **Estilos**: CSS3 con variables personalizadas
 
-### Backend
-- **Runtime**: Node.js 20+
-- **Framework**: Express.js
+### IA Integration
 - **IA**: Google Gemini 2.0 Flash Experimental
-- **Arquitectura**: Serverless Functions (Vercel)
+- **Integración**: Directa desde frontend
+- **Gestión**: Composable personalizado (useGeminiChat)
 
 ### Servicios
 - **Email**: EmailJS para formulario de contacto
-- **Deployment**: Vercel (Frontend + Backend)
-- **Hosting**: GitHub Pages (Frontend)
+- **Deployment**: GitHub Pages (Frontend)
+- **Hosting**: GitHub Pages
 - **CI/CD**: GitHub Actions automático
 
 ### Herramientas de Desarrollo
@@ -51,43 +50,65 @@ Portfolio personal desarrollado con Vue.js 3, TypeScript y Node.js. Presenta mis
 
 ```
 Portfolio-Personal/
-├── api/                     # Serverless functions para Vercel
-│   └── index.js            # API del chat con IA
-├── backend/                 # Backend original (legacy)
-│   ├── server.js           # Servidor Express original
-│   └── package.json        # Dependencias del backend
+├── .env                     # Variables de entorno (API keys)
+├── .gitignore              # Archivos ignorados por Git
 ├── public/                  # Archivos estáticos
 │   ├── certificates/       # Certificados en PDF
 │   ├── images/            # Imágenes del portfolio
 │   │   ├── projects/      # Capturas de proyectos
-│   │   ├── marianotraje.jpg # Foto profesional
+│   │   ├── TRAJE_FORMAL.jpg # Foto profesional
 │   │   └── yo_animado.jpg # Avatar animado
 │   └── favicon.ico        # Icono del sitio
-├── src/                    # Frontend Vue.js
-│   ├── components/        # Componentes Vue reutilizables
-│   │   ├── NavbarComponent.vue  # Barra de navegación
-│   │   ├── HeroSection.vue      # Sección principal/presentación
-│   │   ├── AboutSection.vue     # Sección "Sobre mí"
-│   │   ├── SkillsSection.vue    # Habilidades técnicas
-│   │   ├── ProjectsSection.vue  # Galería de proyectos
-│   │   ├── ContactSection.vue   # Formulario de contacto
-│   │   └── FooterSection.vue    # Pie de página
+├── src/                    # Código fuente principal
+│   ├── components/        # Componentes Vue organizados
+│   │   ├── layout/        # Componentes de estructura
+│   │   │   ├── NavbarComponent.vue  # Barra de navegación
+│   │   │   ├── FooterSection.vue    # Pie de página
+│   │   │   └── ChatWidget.vue       # Widget de chat con IA
+│   │   └── sections/      # Secciones principales
+│   │       ├── HeroSection.vue      # Sección principal/presentación
+│   │       ├── AboutSection.vue     # Sección "Sobre mí"
+│   │       ├── SkillsSection.vue    # Habilidades técnicas
+│   │       ├── ProjectsSection.vue  # Galería de proyectos
+│   │       └── ContactSection.vue   # Formulario de contacto
+│   ├── composables/       # Lógica reutilizable
+│   │   ├── ai/            # Composables de IA
+│   │   │   └── useGeminiChat.ts # Chat con Gemini
+│   │   └── useTheme.ts    # Gestión de temas
+│   ├── config/            # Configuración centralizada
+│   │   ├── constants.ts   # Constantes de la app
+│   │   ├── env.ts         # Variables de entorno
+│   │   └── index.ts       # Exportaciones
+│   ├── types/             # Definiciones TypeScript
+│   │   ├── components.ts  # Tipos de componentes
+│   │   ├── api.ts         # Tipos de API
+│   │   └── index.ts       # Exportaciones
+│   ├── utils/             # Utilidades organizadas
+│   │   ├── dom.ts         # Utilidades del DOM
+│   │   ├── format.ts      # Formateo de datos
+│   │   ├── helpers.ts     # Helpers generales
+│   │   └── index.ts       # Exportaciones
 │   ├── assets/            # Recursos del proyecto
-│   │   ├── base.css      # Estilos base y variables CSS
-│   │   ├── main.css      # Estilos principales
-│   │   └── styles/       # Estilos adicionales
-│   ├── router/           # Configuración de rutas
+│   │   └── css/          # Estilos CSS organizados
+│   │       ├── base.css  # Variables y estilos base
+│   │       ├── main.css  # Estilos principales
+│   │       └── global.css # Estilos globales
+│   ├── router/           # Configuración de Vue Router
 │   │   └── index.ts      # Definición de rutas
 │   ├── views/            # Vistas principales
 │   │   └── HomeView.vue  # Vista principal
 │   ├── App.vue           # Componente raíz
-│   └── main.ts           # Punto de entrada de la aplicación
-├── vercel.json            # Configuración de Vercel
-├── package.json           # Dependencias y scripts
-├── vite.config.ts         # Configuración de Vite
-├── tsconfig.json          # Configuración de TypeScript
-├── VERCEL_DEPLOY.md       # Guía de deploy en Vercel
-└── README.md             # Este archivo
+│   └── main.ts           # Punto de entrada
+├── docs/                  # Documentación
+│   ├── README.md         # Índice de documentación
+│   └── CHAT_SETUP.md     # Guía del chat IA
+├── .vscode/              # Configuración de VS Code
+│   ├── settings.json     # Configuración del editor
+│   └── extensions.json   # Extensiones recomendadas
+├── package.json          # Dependencias y scripts
+├── vite.config.ts        # Configuración de Vite
+├── tsconfig.json         # Configuración de TypeScript
+└── README.md            # Este archivo
 ```
 
 ## 🧩 Componentes Principales
@@ -237,14 +258,18 @@ npm run build
 
 ## 🌐 Deployment
 
-El proyecto está configurado para desplegarse automáticamente en **Vercel**:
+El proyecto está configurado para desplegarse automáticamente en **GitHub Pages**:
 
-1. **Conecta tu repositorio** en [vercel.com](https://vercel.com)
-2. **Configura las variables de entorno**:
-   - `GEMINI_API_KEY`: Tu API key de Google Gemini
-3. **Deploy automático** en cada push a GitHub
+1. **Configura las variables de entorno** en tu archivo `.env`:
+   - `VITE_GEMINI_API_KEY`: Tu API key de Google Gemini
+2. **Deploy automático** con GitHub Actions en cada push a la rama `main`
+3. **El sitio estará disponible** en `https://tu-usuario.github.io/Portfolio-Personal/`
 
-Para más detalles, consulta [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)
+### Deploy manual:
+```bash
+npm run build
+npm run deploy
+```
 
 ## 📁 Estructura del Proyecto
 
@@ -291,26 +316,31 @@ Portfolio-Personal/
 
 El portfolio incluye un chat con IA que responde como Mariano López:
 
-- **Backend**: API serverless en Vercel Functions
-- **IA**: Google Gemini AI
-- **Características**: Memoria de conversación, respuestas personalizadas
-- **Endpoints**:
-  - `POST /api/chat` - Chat principal
-  - `GET /api/health` - Health check
-  - `GET /api/info` - Información de la API
+- **Integración**: Directa desde frontend usando Google Gemini AI
+- **IA**: Google Gemini 2.0 Flash Experimental
+- **Características**:
+  - Memoria de conversación durante la sesión
+  - Respuestas personalizadas como Mariano López
+  - Gestión automática de sesiones
+  - Fallback robusto en caso de errores
+- **Composable**: `useGeminiChat.ts` para lógica reutilizable
 
 ## 📝 Configuración de Variables de Entorno
 
-### Para Vercel (Producción):
-```
-GEMINI_API_KEY=tu_api_key_de_google_gemini
+### Para desarrollo y producción (.env):
+```env
+# Google Gemini API Key
+VITE_GEMINI_API_KEY=tu_api_key_de_google_gemini
+
+# URL base para el chat (opcional)
+VITE_CHAT_API_URL=https://generativelanguage.googleapis.com/v1beta
 ```
 
-### Para desarrollo local (.env):
-```
-GEMINI_API_KEY=tu_api_key_de_google_gemini
-NODE_ENV=development
-```
+### Obtener API Key de Gemini:
+1. Ve a [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Inicia sesión con tu cuenta de Google
+3. Crea una nueva API key
+4. Copia la clave y pégala en tu archivo `.env`
 
 ## 📧 Configuración de EmailJS
 
