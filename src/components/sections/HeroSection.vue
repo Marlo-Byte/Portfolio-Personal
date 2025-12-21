@@ -41,8 +41,8 @@ const scrollToProjects = () => {
             <span class="highlight">Desarrollador Full Stack</span>
           </h2>
           <p class="description">
-            Estudiante de Técnico Superior en Programación en TECLAB, Salta Capital. Apasionado por
-            crear soluciones web innovadoras y experiencias digitales excepcionales.
+            Técnico Superior en Programación graduado de TECLAB, Salta Capital. Apasionado por crear
+            soluciones web innovadoras y experiencias digitales excepcionales.
           </p>
           <div class="hero-buttons">
             <button @click="scrollToContact" class="btn btn-primary">Contáctame</button>

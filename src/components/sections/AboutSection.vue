@@ -49,7 +49,7 @@ onUnmounted(() => {
 })
 
 const stats = [
-  { number: '2+', label: 'Años Estudiando' },
+  { number: '2+', label: 'Años de Formación' },
   { number: '10+', label: 'Proyectos Completados' },
   { number: '5+', label: 'Tecnologías Dominadas' },
   { number: '100%', label: 'Dedicación' },
@@ -57,13 +57,13 @@ const stats = [
 
 const timeline = [
   {
-    year: '2024-2025 - Presente',
+    year: '2024 - 2025',
     title: 'Técnico Superior en Programación',
     institution: 'TECLAB',
     location: 'Online',
     description:
       'Formación integral en desarrollo de software, bases de datos, y metodologías ágiles.',
-    certificate: '/Portfolio-Personal/certificates/intermedioteclab.pdf', // Agregar link del certificado o ruta del PDF cuando esté disponible
+    certificate: '/Portfolio-Personal/certificates/titulo_tecnico_programacion.pdf', // Agregar link del certificado o ruta del PDF cuando esté disponible
   },
   {
     year: '2025',
@@ -136,9 +136,9 @@ const timeline = [
             <div class="text-content">
               <h3>¡Hola! Soy Mariano López</h3>
               <p>
-                Soy un estudiante apasionado de Técnico Superior en Programación en TECLAB, ubicado
-                en la hermosa ciudad de Salta Capital. Mi viaje en el mundo de la programación
-                comenzó con curiosidad y se ha convertido en una verdadera pasión.
+                Soy Técnico Superior en Programación egresado de TECLAB, ubicado en la hermosa
+                ciudad de Salta Capital. Mi viaje en el mundo de la programación comenzó con
+                curiosidad y se ha convertido en una verdadera pasión.
               </p>
               <p>
                 Me especializo en el desarrollo full stack, combinando creatividad con funcionalidad

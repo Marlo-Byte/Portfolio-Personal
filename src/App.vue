@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { useTheme } from '@/composables/useTheme'
 import NavbarComponent from './components/layout/NavbarComponent.vue'
 import FooterSection from './components/layout/FooterSection.vue'
 import ChatWidget from './components/layout/ChatWidget.vue'
@@ -9,27 +9,7 @@ import SkillsSection from './components/sections/SkillsSection.vue'
 import ProjectsSection from './components/sections/ProjectsSection.vue'
 import ContactSection from './components/sections/ContactSection.vue'
 
-const isDark = ref(false)
-
-const toggleTheme = () => {
-  isDark.value = !isDark.value
-  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
-  updateTheme()
-}
-
-const updateTheme = () => {
-  if (isDark.value) {
-    document.documentElement.classList.add('dark')
-  } else {
-    document.documentElement.classList.remove('dark')
-  }
-}
-
-onMounted(() => {
-  const savedTheme = localStorage.getItem('theme')
-  isDark.value = savedTheme === 'dark'
-  updateTheme()
-})
+const { isDark, toggleTheme } = useTheme()
 </script>
 
 <template>
