@@ -378,7 +378,7 @@ const handleImageError = (event: Event) => {
 
 .github-btn {
   background-color: var(--text-primary);
-  color: white;
+  color: var(--bg-primary);
 }
 
 .github-btn:hover {
