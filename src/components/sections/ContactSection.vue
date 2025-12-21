@@ -53,8 +53,8 @@ const contactInfo = [
   {
     icon: 'linkedin',
     title: 'LinkedIn',
-    value: 'https://www.linkedin.com/in/mariano-lopez-877818319/',
-    link: 'https://www.linkedin.com/in/mariano-lopez-877818319/',
+    value: 'https://www.linkedin.com/in/mariano-lopez-garcia/',
+    link: 'https://www.linkedin.com/in/mariano-lopez-garcia/',
     description: 'Conectemos profesionalmente',
   },
 ]
@@ -68,7 +68,8 @@ const submitForm = async () => {
 
   try {
     // Reemplaza con tus IDs reales
-    const result = await emailjs.send(
+    // Reemplaza con tus IDs reales
+    await emailjs.send(
       import.meta.env.VITE_EMAILJS_SERVICE_ID,
       import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
       {
@@ -80,7 +81,6 @@ const submitForm = async () => {
       import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
     )
 
-    console.log('Email enviado:', result)
     submitStatus.value = 'success'
     form.value = {
       name: '',
@@ -88,8 +88,7 @@ const submitForm = async () => {
       subject: '',
       message: '',
     }
-  } catch (error) {
-    console.error('Error al enviar email:', error)
+  } catch {
     submitStatus.value = 'error'
   } finally {
     isSubmitting.value = false
@@ -181,7 +180,7 @@ const getIcon = (iconName: string) => {
                   GitHub
                 </a>
                 <a
-                  href="https://www.linkedin.com/in/mariano-lopez-877818319/"
+                  href="https://www.linkedin.com/in/mariano-lopez-garcia/"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="social-link linkedin"

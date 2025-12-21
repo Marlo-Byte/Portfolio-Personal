@@ -22,28 +22,28 @@ export const isValidUrl = (url: string): boolean => {
 /**
  * Debounce function para optimizar rendimiento
  */
-export const debounce = <T extends (...args: any[]) => void>(
+export const debounce = <T extends (...args: unknown[]) => void>(
   func: T,
-  wait: number
+  wait: number,
 ): ((...args: Parameters<T>) => void) => {
-  let timeout: NodeJS.Timeout
+  let timeout: ReturnType<typeof setTimeout>
   return (...args: Parameters<T>) => {
     clearTimeout(timeout)
-    timeout = setTimeout(() => func.apply(null, args), wait)
+    timeout = setTimeout(() => func(...args), wait)
   }
 }
 
 /**
  * Throttle function para limitar la frecuencia de ejecución
  */
-export const throttle = <T extends (...args: any[]) => void>(
+export const throttle = <T extends (...args: unknown[]) => void>(
   func: T,
-  limit: number
+  limit: number,
 ): ((...args: Parameters<T>) => void) => {
   let inThrottle: boolean
   return (...args: Parameters<T>) => {
     if (!inThrottle) {
-      func.apply(null, args)
+      func(...args)
       inThrottle = true
       setTimeout(() => (inThrottle = false), limit)
     }
@@ -60,10 +60,10 @@ export const deepClone = <T>(obj: T): T => {
 /**
  * Verifica si un valor está vacío (null, undefined, string vacío, array vacío)
  */
-export const isEmpty = (value: any): boolean => {
+export const isEmpty = (value: unknown): boolean => {
   if (value == null) return true
   if (typeof value === 'string') return value.trim() === ''
   if (Array.isArray(value)) return value.length === 0
-  if (typeof value === 'object') return Object.keys(value).length === 0
+  if (typeof value === 'object') return Object.keys(value as object).length === 0
   return false
 }

@@ -4,16 +4,11 @@ import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 const isVisible = ref(false)
 const observer = ref<IntersectionObserver | null>(null)
 const sectionRef = ref<HTMLElement | null>(null)
-const elementsVisible = ref<Set<string>>(new Set())
 
 // Función para manejar la visibilidad de elementos individuales
 const handleElementVisibility = (entries: IntersectionObserverEntry[]) => {
   entries.forEach((entry) => {
-    const elementId = entry.target.getAttribute('data-animate-id')
     if (entry.isIntersecting) {
-      if (elementId) {
-        elementsVisible.value.add(elementId)
-      }
       // Marcar la sección principal como visible
       if (entry.target === sectionRef.value) {
         isVisible.value = true
@@ -29,7 +24,7 @@ onMounted(async () => {
   const options = {
     root: null,
     rootMargin: '-10% 0px -10% 0px', // Activar cuando el elemento esté más centrado
-    threshold: [0, 0.1, 0.25, 0.5, 0.75, 1] // Múltiples thresholds para mejor detección
+    threshold: [0, 0.1, 0.25, 0.5, 0.75, 1], // Múltiples thresholds para mejor detección
   }
 
   observer.value = new IntersectionObserver(handleElementVisibility, options)
@@ -38,14 +33,6 @@ onMounted(async () => {
   if (sectionRef.value) {
     observer.value.observe(sectionRef.value)
   }
-
-  // Observar elementos individuales con animación
-  const animatedElements = document.querySelectorAll('[data-animate-id]')
-  animatedElements.forEach(element => {
-    if (observer.value) {
-      observer.value.observe(element)
-    }
-  })
 
   // Fallback: activar después de un tiempo si no se detecta
   setTimeout(() => {
@@ -60,11 +47,6 @@ onUnmounted(() => {
     observer.value.disconnect()
   }
 })
-
-// Función helper para verificar si un elemento es visible
-const isElementVisible = (id: string) => {
-  return elementsVisible.value.has(id) || isVisible.value
-}
 
 const stats = [
   { number: '2+', label: 'Años Estudiando' },
@@ -106,7 +88,8 @@ const timeline = [
     title: 'Semana de Excel en la Práctica',
     institution: 'Daxus Latam',
     location: 'Online',
-    description: 'Certificado de participación en taller práctico de Excel (8 horas académicas) con enfoque en fórmulas, tablas dinámicas y herramientas de análisis para optimización de procesos.',
+    description:
+      'Certificado de participación en taller práctico de Excel (8 horas académicas) con enfoque en fórmulas, tablas dinámicas y herramientas de análisis para optimización de procesos.',
     certificate: '/Portfolio-Personal/certificates/semana_de_excel.pdf', // Ejemplo de link externo
   },
   {
@@ -114,7 +97,8 @@ const timeline = [
     title: 'Fundamentos de Ethical Hacking',
     institution: 'Seguridad CERO',
     location: 'Online',
-    description: 'Formación introductoria en Ethical Hacking (4 horas académicas) con enfoque en principios de ciberseguridad, análisis de vulnerabilidades y buenas prácticas de seguridad informática.',
+    description:
+      'Formación introductoria en Ethical Hacking (4 horas académicas) con enfoque en principios de ciberseguridad, análisis de vulnerabilidades y buenas prácticas de seguridad informática.',
     certificate: '/Portfolio-Personal/certificates/seguridadcero.pdf', // Ejemplo de certificado
   },
   {
@@ -229,7 +213,7 @@ const timeline = [
             <!-- Botón de descarga del CV debajo de la ubicación -->
             <div class="cv-download-location">
               <a
-                href="/Portfolio-Personal/cv/CV_Actualizado_IA.pdf"
+                href="/Portfolio-Personal/cv/CV - EMPRESARIAL.pdf"
                 target="_blank"
                 class="btn btn-cv-location"
               >
@@ -321,10 +305,18 @@ const timeline = [
 }
 
 /* Animaciones escalonadas para elementos */
-.stagger-1 { transition-delay: 0.1s; }
-.stagger-2 { transition-delay: 0.2s; }
-.stagger-3 { transition-delay: 0.3s; }
-.stagger-4 { transition-delay: 0.4s; }
+.stagger-1 {
+  transition-delay: 0.1s;
+}
+.stagger-2 {
+  transition-delay: 0.2s;
+}
+.stagger-3 {
+  transition-delay: 0.3s;
+}
+.stagger-4 {
+  transition-delay: 0.4s;
+}
 
 /* Scroll suave global */
 html {
@@ -456,8 +448,11 @@ html {
   text-align: center;
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
-  animation: fadeInUp 0.6s ease forwards;
   opacity: 0;
+}
+
+.about-content.visible .stat-item {
+  animation: fadeInUp 0.6s ease forwards;
 }
 
 .stat-item:hover {
@@ -536,8 +531,11 @@ html {
 .timeline-item {
   position: relative;
   margin-bottom: 2rem;
-  animation: fadeInLeft 0.6s ease forwards;
   opacity: 0;
+}
+
+.about-content.visible .timeline-item {
+  animation: fadeInLeft 0.6s ease forwards;
 }
 
 .timeline-marker {

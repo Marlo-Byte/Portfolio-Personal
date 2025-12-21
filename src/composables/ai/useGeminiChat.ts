@@ -2,13 +2,6 @@ import { ref } from 'vue'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { ENV_CONFIG, CHAT_CONFIG } from '@/config'
 
-interface Message {
-  id: string
-  content: string
-  type: 'user' | 'bot'
-  time: string
-}
-
 interface ChatSession {
   history: Array<{ role: 'user' | 'assistant'; content: string }>
   lastActivity: number
@@ -139,7 +132,9 @@ export function useGeminiChat() {
   // Inicializar Gemini AI
   const initializeGemini = () => {
     if (!ENV_CONFIG.GEMINI_API_KEY || ENV_CONFIG.GEMINI_API_KEY === 'tu_api_key_aqui') {
-      throw new Error('API key de Gemini no configurada. Por favor, configura VITE_GEMINI_API_KEY en tu archivo .env')
+      throw new Error(
+        'API key de Gemini no configurada. Por favor, configura VITE_GEMINI_API_KEY en tu archivo .env',
+      )
     }
 
     return new GoogleGenerativeAI(ENV_CONFIG.GEMINI_API_KEY)
@@ -214,7 +209,8 @@ export function useGeminiChat() {
 
       if (err instanceof Error) {
         if (err.message.includes('API key')) {
-          error.value = 'API key de Gemini no configurada. Por favor, configura VITE_GEMINI_API_KEY en tu archivo .env'
+          error.value =
+            'API key de Gemini no configurada. Por favor, configura VITE_GEMINI_API_KEY en tu archivo .env'
         } else if (err.message.includes('quota')) {
           error.value = 'Se ha excedido el límite de uso de la API. Inténtalo más tarde.'
         } else {

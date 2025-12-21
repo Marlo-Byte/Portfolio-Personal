@@ -198,7 +198,6 @@ const getCurrentTime = () => {
 }
 
 const handleSendMessage = async () => {
-  console.log('📝 handleSendMessage llamado con:', currentMessage.value)
   if (!currentMessage.value.trim() || isLoading.value) return
 
   const userMessage: Message = {
@@ -226,14 +225,10 @@ const sendMessageToGemini = async (userMessage: string) => {
     // Generar sessionId si no existe
     if (!sessionId.value) {
       sessionId.value = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
-      console.log('🔑 Nuevo sessionId generado:', sessionId.value)
     }
-
-    console.log('🚀 Enviando mensaje a Gemini:', { userMessage, sessionId: sessionId.value })
 
     // Enviar mensaje usando el composable
     const botResponse = await sendMessage(userMessage, sessionId.value)
-    console.log('📨 Respuesta recibida de Gemini:', botResponse)
 
     const botMessage: Message = {
       id: Date.now().toString(),
@@ -250,8 +245,8 @@ const sendMessageToGemini = async (userMessage: string) => {
 
     await nextTick()
     scrollToBottom()
-  } catch (error) {
-    console.error('Error al enviar mensaje a Gemini:', error)
+  } catch (err) {
+    console.error('Error al enviar mensaje a Gemini:', err)
 
     let errorContent = getFallbackResponse()
 
@@ -303,9 +298,6 @@ const loadSessionId = () => {
   const savedSessionId = localStorage.getItem('chat-session-id')
   if (savedSessionId) {
     sessionId.value = savedSessionId
-    console.log('💾 SessionId cargado desde localStorage:', savedSessionId)
-  } else {
-    console.log('💾 No hay sessionId en localStorage')
   }
 }
 
@@ -325,7 +317,6 @@ const handleResize = () => {
 
 // Lifecycle
 onMounted(() => {
-  console.log('🎯 ChatWidget montado correctamente')
   loadSessionId()
 
   window.addEventListener('resize', handleResize)
