@@ -358,7 +358,7 @@ const scrollToProjects = () => {
 
 @media (max-width: 480px) {
   .name {
-    font-size: 2rem;
+    font-size: 1.75rem;
   }
 
   .hero-buttons {

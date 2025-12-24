@@ -526,6 +526,23 @@ const handleImageError = (event: Event) => {
   .projects-cta {
     padding: 2rem 1rem;
   }
+
+  /* Make overlay and buttons visible on mobile/tablet */
+  .project-overlay {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .project-actions {
+    flex-direction: row;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project-card:hover {
+    transform: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
 }
 
 @media (max-width: 480px) {

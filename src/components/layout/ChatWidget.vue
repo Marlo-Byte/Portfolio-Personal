@@ -782,24 +782,27 @@ watch(sessionId, (newSessionId) => {
 
 @media (max-width: 480px) {
   .chat-widget {
-    bottom: 8px;
-    right: 8px;
-    left: 8px;
+    bottom: 20px;
+    right: 20px;
+    left: auto;
   }
 
   .chat-window {
-    width: calc(100vw - 16px);
-    height: calc(100vh - 100px);
-    bottom: 64px;
-    border-radius: 8px;
-    max-height: none;
+    width: 300px;
+    height: 450px;
+    bottom: 80px;
+    right: 0;
+    left: auto;
+    border-radius: 12px;
+    max-height: calc(100vh - 120px);
   }
 
   .chat-toggle-btn {
-    width: 52px;
-    height: 52px;
-    bottom: 16px;
-    right: 16px;
+    width: 56px;
+    height: 56px;
+    bottom: 0;
+    right: 0;
+    position: relative;
   }
 
   .chat-header {

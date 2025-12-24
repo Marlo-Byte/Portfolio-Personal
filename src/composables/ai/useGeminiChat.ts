@@ -147,7 +147,7 @@ export function useGeminiChat() {
       error.value = null
 
       const genAI = initializeGemini()
-      const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' })
+      const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
 
       // Obtener o crear sesión de conversación
       let conversation = conversationMemory.get(sessionId)
