@@ -88,6 +88,17 @@ const projects = [
     demo: 'https://marlo-byte.github.io/Portfolio-Personal/',
     featured: false,
   },
+  {
+    id: 6,
+    title: 'Proyecto SocialLearning',
+    description: 'Proyecto realizado en equipo para la empresa SocialLearning',
+    image: '/Portfolio-Personal/images/projects/sociallearning.png',
+    technologies: ['Vue.js 3', 'Vite', 'Tailwind CSS'],
+    category: 'fullstack',
+    github: 'https://github.com/PracticaProfesionalizante/WikiFrontend',
+    demo: 'http://practicas.teclab.edu.ar/login',
+    featured: true,
+  },
 ]
 
 const filters = [
