@@ -208,9 +208,11 @@ export function useGeminiChat() {
       console.error('Error en chat:', err)
 
       if (err instanceof Error) {
-        if (err.message.includes('API key')) {
+        if (err.message.includes('no configurada')) {
+          error.value = err.message
+        } else if (err.message.includes('API key') || err.message.includes('403')) {
           error.value =
-            'API key de Gemini no configurada. Por favor, configura VITE_GEMINI_API_KEY en tu archivo .env'
+            'Error de autenticación con Gemini. Es posible que la API key sea inválida o haya sido revocada.'
         } else if (err.message.includes('quota')) {
           error.value = 'Se ha excedido el límite de uso de la API. Inténtalo más tarde.'
         } else {
